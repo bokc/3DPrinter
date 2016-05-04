@@ -15,6 +15,7 @@ coulisse_eh = r608z_D+5;
 coulisse_ec = r608z_D+5;
 
 nema17_L=42;
+nema17_axe_d=5.2;
 
 
 _globalResolution = 16;
@@ -159,9 +160,14 @@ module angle_r608z_3(e,H) {
 }
 
 module angle_4(L,l,e,H) {
+    color("Red")
     union() {
         mirror([1,0,0]) mirror([0,1,0]) angle_1(L,l,e,H);
-        translate([-Frame_e-e,-Frame_e-e,-H]) cube([e,l+e+Frame_e,H]);
+        difference(){
+            translate([-Frame_e-e,-Frame_e-e-nema17_L,-nema17_L-e*2]) cube([e,l+e+Frame_e+nema17_L,nema17_L+e*3]);
+            translate([-Frame_e,-nema17_L/2-e-Frame_e,-coulisse_ec]) rotate([0,-90,0]) cylinder(d=6,h=+e+0.2,fn=_globalResolution);
+            translate([-Frame_e-2*e,l-coulisse_ec+e, -coulisse_ec]) rotate([0,90,0]) cylinder(d=coulisse_d*1.2, h=L+0.1, fn=_globalResolution);
+        }
     }
 }
 
@@ -197,8 +203,8 @@ module all_angle(batis_H,batis_L, batis_l, batis_e) {
 }
 
 module all(Frame_L, Frame_l, Frame_h, Frame_e, coulisse_d, coulisse_e) {
-    color("BurlyWood") frame(Frame_L,Frame_l,Frame_h,Frame_e);
-    all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e);
+    //color("BurlyWood") frame(Frame_L,Frame_l,Frame_h,Frame_e);
+    //all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e);
     
     all_angle(Frame_h, Frame_L, Frame_l,Frame_e);
 }
