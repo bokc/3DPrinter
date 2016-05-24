@@ -141,6 +141,7 @@ module angle_1(L,l,e,H) {
 module angle_r608z_1(e,H) {
     translate([-e,-coulisse_ec, -coulisse_eh]) rotate([0,-90,0]) bearing608z();
     translate([-coulisse_ec,-e, -coulisse_eh-coulisse_e]) rotate([90,0,0]) bearing608z();
+    translate([-e-r608z_e,-coulisse_ec, -coulisse_eh]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_8mm.stl");
 }
 
 module angle_2(L,l,e,H) {
@@ -200,6 +201,8 @@ module all_angle(batis_H,batis_L, batis_l, batis_e) {
     }
     
     translate([-batis_L/2,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) nema_17();
+    translate([-batis_L/2-e,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_5mm.stl");
+    translate([-batis_L/2-e,-batis_l/2+coulisse_ec+batis_e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_8mm.stl");
 }
 
 module all(Frame_L, Frame_l, Frame_h, Frame_e, coulisse_d, coulisse_e) {
@@ -212,16 +215,23 @@ module all(Frame_L, Frame_l, Frame_h, Frame_e, coulisse_d, coulisse_e) {
 all(Frame_L, Frame_l, Frame_h, Frame_e, coulisse_d, coulisse_e);
 
 translate ([Frame_L/2 + 30, 0 , 0]) {
-bearing608z();
+    bearing608z();
 }
 translate ([Frame_L/2 + 50, 0 , 0]) {
-lm8uu();
+    lm8uu();
 }
 translate ([Frame_L/2 + 70, 0 , 0]) {
-bagueLaiton();
+    bagueLaiton();
 }
 
 translate ([Frame_L/2 + 100, 0 , 0]) {
-nema_17();
+    nema_17();
+}
+translate ([Frame_L/2 + 140, 0 , 0]) {
+import("Pulley_GT2_35tooth_5mm.stl");
+}
+
+translate ([Frame_L/2 + 170, 0 , 0]) {
+import("Pulley_GT2_35tooth_5mm.stl");
 }
 
