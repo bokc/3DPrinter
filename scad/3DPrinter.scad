@@ -1,5 +1,6 @@
 use <Linear_Bearing.scad>;
 use <Nema_17.scad>;
+use <Nema17Fix.scad>;
 
 r608z_d=8;
 r608z_D=22;
@@ -10,9 +11,9 @@ Frame_l = 500;
 Frame_h = 400;
 Frame_e = 16;
 coulisse_d = 8;
-coulisse_e = 2*coulisse_d;
+coulisse_e = 3*coulisse_d;
 coulisse_eh = r608z_D+5;
-coulisse_ec = r608z_D+5;
+coulisse_ec = r608z_D+12;
 
 nema17_L=42;
 nema17_axe_d=5.2;
@@ -140,8 +141,10 @@ module angle_1(L,l,e,H) {
 
 module angle_r608z_1(e,H) {
     translate([-e,-coulisse_ec, -coulisse_eh]) rotate([0,-90,0]) bearing608z();
-    translate([-coulisse_ec,-e, -coulisse_eh-coulisse_e]) rotate([90,0,0]) bearing608z();
     translate([-e-r608z_e,-coulisse_ec, -coulisse_eh]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_8mm.stl");
+    
+    translate([-coulisse_ec,-e, -coulisse_eh-coulisse_e]) rotate([90,0,0]) bearing608z();
+    translate([-coulisse_ec,-e-r608z_e, -coulisse_eh-coulisse_e]) rotate([90,0,0]) import("Pulley_GT2_35tooth_8mm.stl");
 }
 
 module angle_2(L,l,e,H) {
@@ -160,14 +163,17 @@ module angle_r608z_3(e,H) {
     mirror([0,1,0]) angle_r608z_1(e,H);
 }
 
+module fixation_Nema17() {
+}
+
 module angle_4(L,l,e,H) {
     color("Red")
     union() {
         mirror([1,0,0]) mirror([0,1,0]) angle_1(L,l,e,H);
         difference(){
-            translate([-Frame_e-e,-Frame_e-e-nema17_L,-nema17_L-e*2]) cube([e,l+e+Frame_e+nema17_L,nema17_L+e*3]);
-            translate([-Frame_e,-nema17_L/2-e-Frame_e,-coulisse_ec]) rotate([0,-90,0]) cylinder(d=6,h=+e+0.2,fn=_globalResolution);
-            translate([-Frame_e-2*e,l-coulisse_ec+e, -coulisse_ec]) rotate([0,90,0]) cylinder(d=coulisse_d*1.2, h=L+0.1, fn=_globalResolution);
+            translate([-Frame_e-e,-Frame_e-2.5*e-nema17_L,-nema17_L-coulisse_e+e]) cube([e,l+2.5*e+Frame_e+nema17_L,nema17_L+coulisse_e]);
+            translate([-Frame_e,-nema17_L-Frame_e-.9*e,-coulisse_ec]) nema_fixation(e,2*e,_globalResolution);
+            translate([-Frame_e-2*e,l-coulisse_ec+e, -coulisse_ec]) rotate([0,90,0]) cylinder(d=coulisse_d*1.2, h=L+0.1, $fn=_globalResolution);
         }
     }
 }
@@ -201,6 +207,7 @@ module all_angle(batis_H,batis_L, batis_l, batis_e) {
     }
     
     translate([-batis_L/2,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) nema_17();
+    
     translate([-batis_L/2-e,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_5mm.stl");
     translate([-batis_L/2-e,-batis_l/2+coulisse_ec+batis_e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_8mm.stl");
 }
