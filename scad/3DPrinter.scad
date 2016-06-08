@@ -1,6 +1,7 @@
 use <Linear_Bearing.scad>;
 use <Nema_17.scad>;
 use <Nema17Fix.scad>;
+use <ConeBearing.scad>;
 
 r608z_d=8;
 r608z_D=22;
@@ -213,8 +214,8 @@ module all_angle(batis_H,batis_L, batis_l, batis_e) {
 }
 
 module all(Frame_L, Frame_l, Frame_h, Frame_e, coulisse_d, coulisse_e) {
-    //color("BurlyWood") frame(Frame_L,Frame_l,Frame_h,Frame_e);
-    //all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e);
+    color("BurlyWood") frame(Frame_L,Frame_l,Frame_h,Frame_e);
+    all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e);
     
     all_angle(Frame_h, Frame_L, Frame_l,Frame_e);
 }
