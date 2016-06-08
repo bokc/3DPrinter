@@ -113,11 +113,18 @@ module all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e) 
     coulissesY(coulisse_d, Frame_l, Frame_h, Frame_L, Frame_e, coulisse_e);
 }
     
+module angle_percage(L, e) {
+    translate([-L*2/3, Frame_e/2,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([-L/3, Frame_e/2,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([Frame_e/2, -L*2/3,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([Frame_e/2, -L/3,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+}
+
 module angle_1(L,l,e,H) {
     retour_h = 15;
-    translate([-L,-l,-H]) {
-        color("Red") difference(){
-            union() {
+    difference(){
+        translate([-L,-l,-H]) {
+            color("Red") union() {
                 difference(){
                     union() {
                         cube([L,l,H]);
@@ -127,17 +134,15 @@ module angle_1(L,l,e,H) {
                     }
                     translate([-0.1,-0.1,-0.05]) cube([L-e+0.1,l-e+0.1,H+e+0.1]);
                 }
-                translate([L-e,l-coulisse_ec, H-coulisse_eh]) rotate([0,-90,0]) cylinder(h = r608z_e+0.1, d1 = r608z_D*1.7, d2 = r608z_D*1.2);
-                translate([L-coulisse_ec,l-e, H-coulisse_eh-coulisse_e]) rotate([90,0,0]) cylinder(h = r608z_e+0.1, d1 = r608z_D*1.7, d2 = r608z_D*1.2);
+                translate([L-e,l-coulisse_ec, H-coulisse_eh]) rotate([0,-90,0]) cone_r608z();
+                translate([L-coulisse_ec,l-e, H-coulisse_eh-coulisse_e]) rotate([90,0,0]) cone_r608z();
             }
-            
-            translate([L-coulisse_ec,0.05+l, H-coulisse_eh-coulisse_e]) rotate([90,0,0]) cylinder(d=coulisse_d+1, h=L+0.1, fn=_globalResolution);
-            translate([-0.05,l-coulisse_ec, H-coulisse_eh]) rotate([0,90,0]) cylinder(d=coulisse_d*1.2, h=L+0.1, fn=_globalResolution);
-            
-            translate([L-e,l-coulisse_ec, H-coulisse_eh]) rotate([0,-90,0]) cylinder(d=r608z_D,h=r608z_e+0.2,fn=_globalResolution);
-            translate([L-coulisse_ec,l-e, H-coulisse_eh-coulisse_e]) rotate([90,0,0]) cylinder(d=r608z_D,h=r608z_e+0.2,fn=_globalResolution); 
         }
+        translate([-coulisse_ec,0.05, -coulisse_eh-coulisse_e]) rotate([90,0,0]) cylinder(d=coulisse_d+1, h=L+0.1, $fn=_globalResolution);
+                translate([-0.05-L,-coulisse_ec, -coulisse_eh]) rotate([0,90,0]) cylinder(d=coulisse_d*1.2, h=L+0.1, $fn=_globalResolution);
+        angle_percage(L,e);
     }
+
 }
 
 module angle_r608z_1(e,H) {
@@ -191,7 +196,7 @@ module all_angle(batis_H,batis_L, batis_l, batis_e) {
     
     translate([batis_L/2-batis_e,batis_l/2-batis_e,batis_H]) {
         angle_1(L,l,e,H);
-        angle_r608z_1(e,H);
+        //angle_r608z_1(e,H);
     }
     translate([-batis_L/2+batis_e,batis_l/2-batis_e,batis_H]) {
         angle_2(L,l,e,H);
@@ -214,8 +219,8 @@ module all_angle(batis_H,batis_L, batis_l, batis_e) {
 }
 
 module all(Frame_L, Frame_l, Frame_h, Frame_e, coulisse_d, coulisse_e) {
-    color("BurlyWood") frame(Frame_L,Frame_l,Frame_h,Frame_e);
-    all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e);
+    //color("BurlyWood") frame(Frame_L,Frame_l,Frame_h,Frame_e);
+    //all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e);
     
     all_angle(Frame_h, Frame_L, Frame_l,Frame_e);
 }
