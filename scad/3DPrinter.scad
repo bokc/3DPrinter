@@ -1,7 +1,9 @@
 include <Param.scad>;
-use <Linear_Bearing.scad>;
+
 use <Nema_17.scad>;
 use <Nema17Fix.scad>;
+use <AxeZ.scad>;
+use <Bearing.scad>
 include <Angle.scad>;
 
 module frame(Frame_L, Frame_l , Frame_h, Frame_e) {
@@ -11,31 +13,6 @@ module frame(Frame_L, Frame_l , Frame_h, Frame_e) {
     translate ([-Frame_L/2, -Frame_l/2+Frame_e,Frame_e]) cube([Frame_e, Frame_l-2*Frame_e, Frame_h-Frame_e]);
     translate ([-Frame_L/2, Frame_l/2-Frame_e,Frame_e]) cube([Frame_L, Frame_e, Frame_h-Frame_e]);
     translate ([Frame_L/2-Frame_e, -Frame_l/2+Frame_e,Frame_h-front_h]) cube([Frame_e, Frame_l-2*Frame_e, front_h]);
-}
-
-module bearing608z(){
-    color("Silver")
-    difference(){
-        cylinder(d=r608z_D,h=r608z_e,fn=_globalResolution);
-        translate ([0,0, -0.05]) cylinder(d=r608z_d,h=r608z_e+0.1,fn=_globalResolution);
-    };
-}
-
-module lm8uu() {
-    color("Silver")
-    linear_bearing("LM-8-UU");
-}
-    
-module bagueLaiton() {
-    d=8;
-    D=12;
-    l=30;
-    color("Goldenrod")
-    translate ([0,0,-l/2])
-    difference(){
-        cylinder(d=D,h=l,fn=_globalResolution);
-        translate ([0,0, -0.05]) cylinder(d=d,h=l+0.1,fn=_globalResolution);
-    };
 }
 
 module coulissesX(d, Frame_L, frame_h, Frame_l, Frame_e) {
@@ -57,11 +34,11 @@ module coulissesX(d, Frame_L, frame_h, Frame_l, Frame_e) {
             cylinder (d=d, h=Frame_L-2*espace_cote+d-Frame_e*2, fn=_globalResolution);
     
     translate([0, -translate_Y, frame_h-espace_haut])
-        rotate([0,90,0]) bagueLaiton();
+        rotate([0,90,0]) bagueLaiton_8_12_30();
     translate([0, translate_Y, frame_h-espace_haut])
-        rotate([0,90,0]) bagueLaiton();
+        rotate([0,90,0]) bagueLaiton_8_12_30();
     translate([0, 0, frame_h-espace_haut])
-        rotate([0,90,0]) bagueLaiton();
+        rotate([0,90,0]) bagueLaiton_8_12_30();
 }
 
 module coulissesY(d, Frame_L, frame_h, Frame_l, Frame_e, coulisse_e) {
@@ -83,20 +60,17 @@ module coulissesY(d, Frame_L, frame_h, Frame_l, Frame_e, coulisse_e) {
             cylinder (d=d, h=Frame_L-2*espace_cote+d-Frame_e*2, fn=_globalResolution);
     
     translate([-translate_x, 0, frame_h-espace_haut])
-        rotate([90,0,0]) bagueLaiton();
+        rotate([90,0,0]) bagueLaiton_8_12_30();
     translate([translate_x, 0, frame_h-espace_haut])
-        rotate([90,0,0]) bagueLaiton();
+        rotate([90,0,0]) bagueLaiton_8_12_30();
     translate([0, 0, frame_h-espace_haut])
-        rotate([90,0,0]) bagueLaiton();
+        rotate([90,0,0]) bagueLaiton_8_12_30();
 }
 
 module all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e) {
     coulissesX(coulisse_d, Frame_L, Frame_h, Frame_l, Frame_e);
     coulissesY(coulisse_d, Frame_l, Frame_h, Frame_L, Frame_e, coulisse_e);
 }
-
-
-
 
 module all_angle(batis_H,batis_L, batis_l, batis_e) {
     L = coulisse_ec+r608z_D;
@@ -124,8 +98,8 @@ module all_angle(batis_H,batis_L, batis_l, batis_e) {
     
     translate([-batis_L/2,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) nema_17();
     
-    translate([-batis_L/2-e,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_5mm.stl");
-    translate([-batis_L/2-e,-batis_l/2+coulisse_ec+batis_e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_8mm.stl");
+    translate([-batis_L/2-e,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("../stl/Pulley_GT2_35tooth_5mm.stl");
+    translate([-batis_L/2-e,-batis_l/2+coulisse_ec+batis_e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
 }
 
 module all(Frame_L, Frame_l, Frame_h, Frame_e, coulisse_d, coulisse_e) {
@@ -133,6 +107,9 @@ module all(Frame_L, Frame_l, Frame_h, Frame_e, coulisse_d, coulisse_e) {
     all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e);
     
     all_angle(Frame_h, Frame_L, Frame_l,Frame_e);
+    
+    translate([0,-Frame_l/2+Frame_e,Frame_e]) rotate([0,0,90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
+    translate([0,+Frame_l/2-Frame_e,Frame_e]) rotate([0,0,-90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
 }
 
 all(Frame_L, Frame_l, Frame_h, Frame_e, coulisse_d, coulisse_e);
