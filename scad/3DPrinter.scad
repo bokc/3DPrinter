@@ -1,26 +1,8 @@
+include <Param.scad>;
 use <Linear_Bearing.scad>;
 use <Nema_17.scad>;
 use <Nema17Fix.scad>;
-use <ConeBearing.scad>;
-
-r608z_d=8;
-r608z_D=22;
-r608z_e=7;
-
-Frame_L = 400;
-Frame_l = 500;
-Frame_h = 400;
-Frame_e = 16;
-coulisse_d = 8;
-coulisse_e = 3*coulisse_d;
-coulisse_eh = r608z_D+5;
-coulisse_ec = r608z_D+12;
-
-nema17_L=42;
-nema17_axe_d=5.2;
-
-
-_globalResolution = 16;
+include <Angle.scad>;
 
 module frame(Frame_L, Frame_l , Frame_h, Frame_e) {
     front_h=100;
@@ -112,84 +94,9 @@ module all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e) 
     coulissesX(coulisse_d, Frame_L, Frame_h, Frame_l, Frame_e);
     coulissesY(coulisse_d, Frame_l, Frame_h, Frame_L, Frame_e, coulisse_e);
 }
-    
-module angle_percages(L, e) {
-    translate([-L*2/3, Frame_e/2,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
-    translate([-L/3, Frame_e/2,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
-    translate([Frame_e/2, -L*2/3,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
-    translate([Frame_e/2, -L/3,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
-}
 
-module angle_coulisses(L,e) {
-    translate([-coulisse_ec,0.05+Frame_e+e, -coulisse_eh-coulisse_e]) rotate([90,0,0]) cylinder(d=coulisse_d+1, h=L+Frame_e+e+0.1, $fn=_globalResolution);
-    translate([-0.05-L,-coulisse_ec, -coulisse_eh]) rotate([0,90,0]) cylinder(d=coulisse_d*1.2, h=L+Frame_e+e+0.1, $fn=_globalResolution);
-}
 
-module angle_1(L,l,e,H) {
-    retour_h = 15;
-    difference(){
-        translate([-L,-l,-H]) {
-            color("Red") union() {
-                difference(){
-                    union() {
-                        cube([L,l,H]);
-                        translate([0,0,H]) cube([L+Frame_e+e,l+Frame_e+e,e]);
-                        translate([L+Frame_e,0,H-retour_h]) cube([e,l+Frame_e+e,retour_h]);
-                        translate([0,l+Frame_e,H-retour_h]) cube([L+Frame_e+e,e,retour_h]);
-                    }
-                    translate([-0.1,-0.1,-0.05]) cube([L-e+0.1,l-e+0.1,H+e+0.1]);
-                }
-                translate([L-e,l-coulisse_ec, H-coulisse_eh]) rotate([0,-90,0]) cone_r608z();
-                translate([L-coulisse_ec,l-e, H-coulisse_eh-coulisse_e]) rotate([90,0,0]) cone_r608z();
-            }
-        }
-        angle_coulisses(L,e);
-        angle_percages(L,e);
-    }
-}
 
-module angle_r608z_1(e,H) {
-    translate([-e,-coulisse_ec, -coulisse_eh]) rotate([0,-90,0]) bearing608z();
-    translate([-e-r608z_e,-coulisse_ec, -coulisse_eh]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_8mm.stl");
-    
-    translate([-coulisse_ec,-e, -coulisse_eh-coulisse_e]) rotate([90,0,0]) bearing608z();
-    translate([-coulisse_ec,-e-r608z_e, -coulisse_eh-coulisse_e]) rotate([90,0,0]) import("Pulley_GT2_35tooth_8mm.stl");
-}
-
-module angle_2(L,l,e,H) {
-    mirror([1,0,0]) angle_1(L,l,e,H);
-}
-
-module angle_r608z_2(e,H) {
-    mirror([1,0,0]) angle_r608z_1(e,H);
-}
-
-module angle_3(L,l,e,H) {
-    mirror([0,1,0]) angle_1(L,l,e,H);
-}
-
-module angle_r608z_3(e,H) {
-    mirror([0,1,0]) angle_r608z_1(e,H);
-}
-
-module fixation_Nema17() {
-}
-
-module angle_4(L,l,e,H) {
-    color("Red")
-    union() {
-        mirror([1,0,0]) mirror([0,1,0]) angle_1(L,l,e,H);
-        difference(){
-            translate([-Frame_e-e,-Frame_e-2.5*e-nema17_L,-nema17_L-coulisse_e+e]) cube([e,l+2.5*e+Frame_e+nema17_L,nema17_L+coulisse_e]);
-            translate([-Frame_e,-nema17_L-Frame_e-.9*e,-coulisse_ec]) nema_fixation(e,2*e,_globalResolution);
-            mirror([1,0,0]) mirror([0,1,0]) angle_coulisses(L,e);
-        }
-    }
-}
-
-module angle_r608z_4(e,H) {
-    mirror([1,0,0]) mirror([0,1,0]) angle_r608z_1(e,H);
-}
 
 module all_angle(batis_H,batis_L, batis_l, batis_e) {
     L = coulisse_ec+r608z_D;
@@ -199,7 +106,7 @@ module all_angle(batis_H,batis_L, batis_l, batis_e) {
     
     translate([batis_L/2-batis_e,batis_l/2-batis_e,batis_H]) {
         angle_1(L,l,e,H);
-        //angle_r608z_1(e,H);
+        angle_r608z_1(e,H);
     }
     translate([-batis_L/2+batis_e,batis_l/2-batis_e,batis_H]) {
         angle_2(L,l,e,H);
@@ -208,22 +115,22 @@ module all_angle(batis_H,batis_L, batis_l, batis_e) {
     
     translate([-batis_L/2+batis_e,-batis_l/2+batis_e,batis_H]) {
         angle_4(L,l,e,H);
-        //angle_r608z_4(e,H);
+        angle_r608z_4(e,H);
     }
     translate([batis_L/2-batis_e,-batis_l/2+batis_e,batis_H]) {
         angle_3(L,l,e,H);
         angle_r608z_3(e,H);
     }
     
-    //translate([-batis_L/2,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) nema_17();
+    translate([-batis_L/2,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) nema_17();
     
-    //translate([-batis_L/2-e,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_5mm.stl");
-    //translate([-batis_L/2-e,-batis_l/2+coulisse_ec+batis_e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_8mm.stl");
+    translate([-batis_L/2-e,-batis_l/2-nema17_L/2-e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_5mm.stl");
+    translate([-batis_L/2-e,-batis_l/2+coulisse_ec+batis_e,batis_H-coulisse_ec]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_8mm.stl");
 }
 
 module all(Frame_L, Frame_l, Frame_h, Frame_e, coulisse_d, coulisse_e) {
-    //color("BurlyWood") frame(Frame_L,Frame_l,Frame_h,Frame_e);
-    //all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e);
+    color("BurlyWood") frame(Frame_L,Frame_l,Frame_h,Frame_e);
+    all_coulisse(Frame_L, Frame_l, Frame_h, coulisse_d, Frame_e, coulisse_e);
     
     all_angle(Frame_h, Frame_L, Frame_l,Frame_e);
 }
@@ -244,10 +151,10 @@ translate ([Frame_L/2 + 100, 0 , 0]) {
     nema_17();
 }
 translate ([Frame_L/2 + 140, 0 , 0]) {
-import("Pulley_GT2_35tooth_5mm.stl");
+import("../stl/Pulley_GT2_35tooth_5mm.stl");
 }
 
 translate ([Frame_L/2 + 170, 0 , 0]) {
-import("Pulley_GT2_35tooth_5mm.stl");
+import("../stl/Pulley_GT2_35tooth_5mm.stl");
 }
 
