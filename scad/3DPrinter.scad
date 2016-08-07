@@ -4,7 +4,7 @@ use <Nema_17.scad>;
 use <Nema17Fix.scad>;
 use <AxeZ.scad>;
 use <Bearing.scad>
-include <Angle.scad>;
+use <Angle.scad>;
 
 module frame(Frame_L, Frame_l , Frame_h, Frame_e) {
     front_h=100;

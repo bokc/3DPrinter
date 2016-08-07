@@ -1,11 +1,27 @@
 include <Param.scad>;
 use <ConeBearing.scad>;
+use <Nema17Fix.scad>;
 
-module angle_percages(L, e) {
+module angle_percages(L, e, H) {
+    //haut
     translate([-L*2/3, Frame_e/2,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
     translate([-L/3, Frame_e/2,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
     translate([Frame_e/2, -L*2/3,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
     translate([Frame_e/2, -L/3,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    
+    //Y
+    translate([-15,0.1,-e-Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([-L+10,0.1,-e-Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([-15,0.1,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([-L+10,0.1,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e*2+0.2, $fn=_globalResolution);
+    translate([-L+10,-e,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=6, h=e, $fn=_globalResolution); //Tete de vis
+    
+    //x
+    translate([-e-0.1,-15,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([-e*2-0.1,-L+10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e*2+0.2, $fn=_globalResolution);
+    translate([-e*2-0.1,-L+10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=6, h=e, $fn=_globalResolution); //Tete de vis
+    translate([-e-0.1,-15,-H+Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([-e-0.1, -L+10,-H+Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
 }
 
 module angle_coulisses(L,e) {
@@ -32,7 +48,7 @@ module angle_1(L,l,e,H) {
             }
         }
         angle_coulisses(L,e);
-        angle_percages(L,e);
+        angle_percages(L,e,H);
     }
 }
 
@@ -61,24 +77,36 @@ module angle_r608z_3(e,H) {
 }
 
 module angle_4(L,l,e,H) {
-    color("Red")
-    union() {
-        mirror([1,0,0]) mirror([0,1,0]) angle_1(L,l,e,H);
-        difference(){
-            translate([-Frame_e-e,-Frame_e-2.5*e-nema17_L,-nema17_L-coulisse_e+e]) cube([e,l+2.5*e+Frame_e+nema17_L,nema17_L+coulisse_e]);
-            translate([-Frame_e,-nema17_L-Frame_e-.9*e,-coulisse_ec]) nema_fixation(e,2*e,_globalResolution);
-            mirror([1,0,0]) mirror([0,1,0]) angle_coulisses(L,e);
+    support_h = nema17_L + coulisse_e;
+    difference(){
+        union() {
+            mirror([1,0,0]) mirror([0,1,0]) angle_1(L,l,e,H);
+            difference(){
+                color("Red") translate([-Frame_e-e,-Frame_e-2.5*e-nema17_L,-nema17_L-coulisse_e+e]) cube([e,l+2.5*e+Frame_e+nema17_L,support_h]);
+                translate([-Frame_e,-nema17_L-Frame_e-.9*e,-coulisse_ec]) nema_fixation(e,2*e,_globalResolution);
+                mirror([1,0,0]) mirror([0,1,0]) angle_coulisses(L,e);
+            }
         }
-    }
+        //vis
+        translate([-e-0.1-Frame_e,-Frame_e/2,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+        translate([-e-0.1-Frame_e,+L-10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+        translate([-e-0.1-Frame_e,-Frame_e/2,-support_h+Frame_e]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+        translate([-e-0.1-Frame_e, +L-10,-support_h+Frame_e]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+}
 }
 
 module angle_r608z_4(e,H) {
     mirror([1,0,0]) mirror([0,1,0]) angle_r608z_1(e,H);
 }
 
-//L = coulisse_ec+r608z_D;
-//l = coulisse_ec+r608z_D;
-//H = coulisse_e+coulisse_eh+r608z_D;
-//e = 5;
+L = coulisse_ec+r608z_D;
+l = coulisse_ec+r608z_D;
+H = coulisse_e+coulisse_eh+r608z_D;
+e = 5;
+espace = 60;
 
-//angle_1(L,l,e,H);
+translate([espace,espace,0]) angle_1(L,l,e,H);
+//color("blue") translate([espace,espace,0]) angle_percages(l,e,H);
+translate([-espace,espace,0]) angle_2(L,l,e,H);
+translate([espace,-espace,0]) angle_3(L,l,e,H);
+translate([-espace,-espace,0]) angle_4(L,l,e,H);
