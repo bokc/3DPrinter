@@ -29,3 +29,5 @@ Frame_h = axe_z;
 coulisse_e = 3*coulisse_d;
 coulisse_eh = r608z_D+5;
 coulisse_ec = r608z_D+12;
+
+angle_h=coulisse_e+coulisse_eh+r608z_D;

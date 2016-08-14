@@ -15,12 +15,12 @@ module angle_percages(L, e, H) {
     translate([-L+10,0.1,-e-Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
     translate([-15,0.1,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
     translate([-L+10,0.1,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e*2+0.2, $fn=_globalResolution);
-    translate([-L+10,-e,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=6, h=e, $fn=_globalResolution); //Tete de vis
+    translate([-L+10,-e,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=7, h=e, $fn=_globalResolution); //Tete de vis
     
     //x
     translate([-e-0.1,-15,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
     translate([-e*2-0.1,-L+10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e*2+0.2, $fn=_globalResolution);
-    translate([-e*2-0.1,-L+10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=6, h=e, $fn=_globalResolution); //Tete de vis
+    translate([-e*2-0.1,-L+10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=7, h=e, $fn=_globalResolution); //Tete de vis
     translate([-e-0.1,-15,-H+Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
     translate([-e-0.1, -L+10,-H+Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
 }
@@ -55,14 +55,30 @@ module angle_1(L,l,e,H) {
 
 module angle_r608z_1(e,H) {
     translate([-e,-coulisse_ec, -coulisse_eh]) rotate([0,-90,0]) bearing608z();
-    translate([-e-r608z_e,-coulisse_ec, -coulisse_eh]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_8mm.stl");
+    //translate([-e-r608z_e,-coulisse_ec, -coulisse_eh]) rotate([0,-90,0]) import("Pulley_GT2_35tooth_8mm.stl");
     
     translate([-coulisse_ec,-e, -coulisse_eh-coulisse_e]) rotate([90,0,0]) bearing608z();
-    translate([-coulisse_ec,-e-r608z_e, -coulisse_eh-coulisse_e]) rotate([90,0,0]) import("Pulley_GT2_35tooth_8mm.stl");
+    //translate([-coulisse_ec,-e-r608z_e, -coulisse_eh-coulisse_e]) rotate([90,0,0]) import("Pulley_GT2_35tooth_8mm.stl");
 }
 
 module angle_2(L,l,e,H) {
-    mirror([1,0,0]) angle_1(L,l,e,H);
+    
+    support_h = nema17_L + coulisse_e;
+    difference(){
+        union() {
+            mirror([1,0,0]) angle_1(L,l,e,H);
+            difference(){
+                color("Red") translate([-Frame_e-2.5*e-nema17_L,Frame_e,-nema17_L-coulisse_e+e]) cube([l+2.5*e+Frame_e+nema17_L,e,support_h]);
+                translate([-Frame_e-e*2.6,Frame_e+e,-coulisse_ec]) rotate([0,0,90]) nema_fixation(e,2*e,_globalResolution);
+                mirror([1,0,0]) angle_coulisses(L,e);
+            }
+        }
+        //vis
+        translate([-Frame_e/2,+e+0.1+Frame_e,-e-Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+        //translate([L-10,+e+0.1+Frame_e,-e-Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+        translate([-Frame_e/2,+e+0.1+Frame_e,-support_h+Frame_e]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+        translate([L-10,+e+0.1+Frame_e,-support_h/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    }
 }
 
 module angle_r608z_2(e,H) {
@@ -90,10 +106,10 @@ module angle_4(L,l,e,H) {
         }
         //vis
         translate([-e-0.1-Frame_e,-Frame_e/2,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
-        translate([-e-0.1-Frame_e,+L-10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+        //translate([-e-0.1-Frame_e,+L-10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
         translate([-e-0.1-Frame_e,-Frame_e/2,-support_h+Frame_e]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
         translate([-e-0.1-Frame_e, +L-10,-support_h+Frame_e]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
-}
+    }
 }
 
 module angle_r608z_4(e,H) {

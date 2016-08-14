@@ -7,7 +7,7 @@ use <Bearing.scad>
 use <Angle.scad>;
 
 module frame() {
-    front_h=100;
+    front_h=angle_h+7;
     translate ([-Frame_L/2, -Frame_l/2,0]) cube([Frame_L, Frame_l, Frame_e]);
     translate ([-Frame_L/2, -Frame_l/2,Frame_e]) cube([Frame_L, Frame_e, Frame_h-Frame_e]);
     translate ([-Frame_L/2, -Frame_l/2+Frame_e,Frame_e]) cube([Frame_e, Frame_l-2*Frame_e, Frame_h-Frame_e]);
@@ -105,7 +105,7 @@ module all_coulisse() {
 module all_angle() {
     L = coulisse_ec+r608z_D;
     l = coulisse_ec+r608z_D;
-    H = coulisse_e+coulisse_eh+r608z_D;
+    H = angle_h;
     e = angle_e;
     
     translate([Frame_L/2-Frame_e,Frame_l/2-Frame_e,Frame_h]) {
@@ -116,16 +116,21 @@ module all_angle() {
         angle_2(L,l,e,H);
         angle_r608z_2(e,H);
     }
+    translate([-Frame_l/2,Frame_L/2+nema17_L/2+e,Frame_h-coulisse_ec]) rotate([-90,0,0]) nema_17();
     
-    translate([-Frame_L/2+Frame_e,-Frame_l/2+Frame_e,Frame_h]) {
-        angle_4(L,l,e,H);
-        angle_r608z_4(e,H);
-    }
+    translate([-Frame_L/2-nema17_L/2-e,Frame_l/2+e,Frame_h-coulisse_ec]) rotate([-90,0,0]) import("../stl/Pulley_GT2_35tooth_5mm.stl");
+    translate([-Frame_L/2+coulisse_ec+Frame_e,Frame_l/2+e,Frame_h-coulisse_eh-coulisse_e]) rotate([-90,0,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
+    
+    
     translate([Frame_L/2-Frame_e,-Frame_l/2+Frame_e,Frame_h]) {
         angle_3(L,l,e,H);
         angle_r608z_3(e,H);
     }
     
+    translate([-Frame_L/2+Frame_e,-Frame_l/2+Frame_e,Frame_h]) {
+        angle_4(L,l,e,H);
+        angle_r608z_4(e,H);
+    }
     translate([-Frame_L/2,-Frame_l/2-nema17_L/2-e,Frame_h-coulisse_ec]) rotate([0,-90,0]) nema_17();
     
     translate([-Frame_L/2-e,-Frame_l/2-nema17_L/2-e,Frame_h-coulisse_ec]) rotate([0,-90,0]) import("../stl/Pulley_GT2_35tooth_5mm.stl");
