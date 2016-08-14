@@ -1,6 +1,7 @@
 include <Param.scad>;
 use <ConeBearing.scad>;
 use <Nema17Fix.scad>;
+use <Bearing.scad>;
 
 module angle_percages(L, e, H) {
     //haut
