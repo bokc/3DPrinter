@@ -39,25 +39,24 @@ module coulissesX() {
         rotate([0,90,0]) bagueLaiton_8_12_30();
         
     translate([-Frame_L/2+r608z_e+Frame_e+angle_e+Pulley_GT2_8_e,
-        -Frame_l/2+coulisse_ec+Frame_e,
+        -translate_Y,
         translate_y])
             rotate([0,-90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
     translate([-Frame_L/2+r608z_e+Frame_e+angle_e+Pulley_GT2_8_e,
-        Frame_l/2-coulisse_ec-Frame_e,
+        translate_Y,
         translate_y])
             rotate([0,-90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
     translate([Frame_L/2-r608z_e-Frame_e-angle_e-Pulley_GT2_8_e,
-        -Frame_l/2+coulisse_ec+Frame_e,
+        -translate_Y,
         translate_y])
             rotate([0,90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
     translate([Frame_L/2-r608z_e-Frame_e-angle_e-Pulley_GT2_8_e,
-        Frame_l/2-coulisse_ec-Frame_e,
+        translate_Y,
         translate_y])
             rotate([0,90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
 }
 
 module coulissesY() {
-    
     translate_x=Frame_L/2-coulisse_ec-Frame_e;
     translate_Y=Frame_l/2;
     translate_z=Frame_h-coulisse_eh-coulisse_e;
@@ -80,20 +79,20 @@ module coulissesY() {
     translate([0, 0, translate_z])
         rotate([90,0,0]) bagueLaiton_8_12_30();
         
-    translate([-Frame_L/2+coulisse_ec+Frame_e,
+    translate([-translate_x,
         -Frame_l/2+r608z_e+Frame_e+angle_e+Pulley_GT2_8_e,
         translate_z])
             rotate([90,0,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
-    translate([-Frame_L/2+r608z_e+Frame_e+angle_e+Pulley_GT2_8_e,
-        Frame_l/2-coulisse_ec-Frame_e,
-        translate_z])
-            rotate([90,0,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
-    translate([Frame_L/2-r608z_e-Frame_e-angle_e-Pulley_GT2_8_e,
-        -Frame_l/2+coulisse_ec+Frame_e,
+    translate([-translate_x,
+        Frame_l/2-r608z_e-Frame_e-angle_e-Pulley_GT2_8_e,
         translate_z])
             rotate([-90,0,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
-    translate([Frame_L/2-r608z_e-Frame_e-angle_e-Pulley_GT2_8_e,
-        Frame_l/2-coulisse_ec-Frame_e,
+    translate([translate_x,
+        -Frame_l/2+r608z_e+Frame_e+angle_e+Pulley_GT2_8_e,
+        translate_z])
+            rotate([90,0,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
+    translate([translate_x,
+        Frame_l/2-r608z_e-Frame_e-angle_e-Pulley_GT2_8_e,
         translate_z])
             rotate([-90,0,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
 }
