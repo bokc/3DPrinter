@@ -8,11 +8,20 @@ use <Angle.scad>;
 
 module frame() {
     front_h=angle_h+7;
-    translate ([-Frame_L/2+Frame_e, -Frame_l/2+Frame_e,0]) cube([Frame_L-Frame_e, Frame_l-2*Frame_e, Frame_e]);
-    translate ([-Frame_L/2, -Frame_l/2,0]) cube([Frame_L, Frame_e, Frame_h]);
-    translate ([-Frame_L/2, -Frame_l/2+Frame_e,0]) cube([Frame_e, Frame_l-2*Frame_e, Frame_h]);
-    translate ([-Frame_L/2, Frame_l/2-Frame_e,0]) cube([Frame_L, Frame_e, Frame_h]);
-    translate ([Frame_L/2-Frame_e, -Frame_l/2+Frame_e,Frame_h-front_h]) cube([Frame_e, Frame_l-2*Frame_e, front_h]);
+    color("BurlyWood") {
+        translate ([-Frame_L/2+Frame_e, -Frame_l/2+Frame_e,0]) cube([Frame_L-Frame_e, Frame_l-2*Frame_e, Frame_e]);
+        translate ([-Frame_L/2, -Frame_l/2,0]) cube([Frame_L, Frame_e, Frame_h]);
+        translate ([-Frame_L/2, -Frame_l/2+Frame_e,0]) cube([Frame_e, Frame_l-2*Frame_e, Frame_h]);
+        translate ([-Frame_L/2, Frame_l/2-Frame_e,0]) cube([Frame_L, Frame_e, Frame_h]);
+        translate ([Frame_L/2-Frame_e, -Frame_l/2+Frame_e,Frame_h-front_h]) cube([Frame_e, Frame_l-2*Frame_e, front_h]);
+    }
+    color("black") {
+        translate ([10,0,Frame_e]) rotate([0,0,90]) text(text = str(Frame_L-Frame_e,"x",Frame_l-2*Frame_e));
+        translate ([0,-Frame_l/2,Frame_h/2]) rotate([90,0,0]) text(text = str(Frame_L,"x",Frame_h));
+        translate ([-Frame_L/2,0,Frame_h/2]) rotate([90,0,-90]) text(text = str(Frame_l-2*Frame_e,"x",Frame_h));
+        translate ([0,Frame_l/2,Frame_h/2]) rotate([90,0,180]) text(text = str(Frame_L,"x",Frame_h));
+        translate ([Frame_L/2,0,Frame_h-front_h/2]) rotate([90,0,90]) text(text = str(Frame_l-2*Frame_e,"x",front_h));
+    }
 }
 
 module coulissesX() {
@@ -138,7 +147,7 @@ module all_angle() {
 }
 
 module all() {
-    color("BurlyWood") frame();
+    frame();
     all_coulisse();
     
     all_angle();
