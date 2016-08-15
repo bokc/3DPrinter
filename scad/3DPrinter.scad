@@ -8,10 +8,10 @@ use <Angle.scad>;
 
 module frame() {
     front_h=angle_h+7;
-    translate ([-Frame_L/2, -Frame_l/2,0]) cube([Frame_L, Frame_l, Frame_e]);
-    translate ([-Frame_L/2, -Frame_l/2,Frame_e]) cube([Frame_L, Frame_e, Frame_h-Frame_e]);
-    translate ([-Frame_L/2, -Frame_l/2+Frame_e,Frame_e]) cube([Frame_e, Frame_l-2*Frame_e, Frame_h-Frame_e]);
-    translate ([-Frame_L/2, Frame_l/2-Frame_e,Frame_e]) cube([Frame_L, Frame_e, Frame_h-Frame_e]);
+    translate ([-Frame_L/2+Frame_e, -Frame_l/2+Frame_e,0]) cube([Frame_L-Frame_e, Frame_l-2*Frame_e, Frame_e]);
+    translate ([-Frame_L/2, -Frame_l/2,0]) cube([Frame_L, Frame_e, Frame_h]);
+    translate ([-Frame_L/2, -Frame_l/2+Frame_e,0]) cube([Frame_e, Frame_l-2*Frame_e, Frame_h]);
+    translate ([-Frame_L/2, Frame_l/2-Frame_e,0]) cube([Frame_L, Frame_e, Frame_h]);
     translate ([Frame_L/2-Frame_e, -Frame_l/2+Frame_e,Frame_h-front_h]) cube([Frame_e, Frame_l-2*Frame_e, front_h]);
 }
 
