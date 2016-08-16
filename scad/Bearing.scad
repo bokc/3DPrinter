@@ -25,3 +25,7 @@ module bagueLaiton_8_12_30() {
         translate ([0,0, -0.05]) cylinder(d=d,h=l+0.1,fn=_globalResolution);
     };
 }
+
+bearing608z();
+translate([20,0,0]) lm8uu();
+translate([40,0,0]) bagueLaiton_8_12_30();
