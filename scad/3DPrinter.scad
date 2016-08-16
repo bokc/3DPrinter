@@ -3,8 +3,9 @@ include <Param.scad>;
 use <Nema_17.scad>;
 use <Nema17Fix.scad>;
 use <AxeZ.scad>;
-use <Bearing.scad>
+use <Bearing.scad>;
 use <Angle.scad>;
+use <slicer.scad>;
 
 module frame() {
     front_h=angle_h+7;
@@ -31,10 +32,10 @@ module railsX() {
     
     color("Silver") translate([translate_x, -translate_Y, translate_H])
         rotate([0,-90,0]) 
-            cylinder (d=coulisse_d, h=axe_x, fn=_globalResolution);
+            cylinder (d=coulisse_d, h=axe_x, $fn=_globalResolution);
     color("Silver") translate([-translate_x, translate_Y, translate_H])
         rotate([0,90,0]) 
-            cylinder (d=coulisse_d, h=axe_x, fn=_globalResolution);
+            cylinder (d=coulisse_d, h=axe_x, $fn=_globalResolution);
     
     translate([0, -translate_Y, translate_H])
         rotate([0,90,0]) bagueLaiton_8_12_30();
@@ -67,10 +68,10 @@ module railsY() {
     
     color("Silver") translate([-translate_x, -translate_Y, translate_z])
         rotate([-90,0,0]) 
-            cylinder (d=coulisse_d, h=axe_y, fn=_globalResolution);
+            cylinder (d=coulisse_d, h=axe_y, $fn=_globalResolution);
     color("Silver") translate([translate_x, -translate_Y, translate_z])
         rotate([-90,0,0]) 
-            cylinder (d=coulisse_d, h=axe_y, fn=_globalResolution);
+            cylinder (d=coulisse_d, h=axe_y, $fn=_globalResolution);
 
     translate([-translate_x, 0, translate_z])
         rotate([90,0,0]) bagueLaiton_8_12_30();
@@ -97,18 +98,17 @@ module railsY() {
 
 module railsCross() {
     translate_z = Frame_h-coulisse_eh-coulisse_e/2;
-    ec = BagueLaiton_D+1;
     
-    color("Silver") translate([-Frame_L/2+coulisse_ec-coulisse_d/2+Frame_e, 0, translate_z+ec/2])
+    color("Silver") translate([-Frame_L/2+coulisse_ec-coulisse_d/2+Frame_e, 0, translate_z+Cross_ec/2])
         rotate([0,90,0]) 
-            cylinder (d=coulisse_d, h=Frame_L-2*coulisse_ec+coulisse_d-Frame_e*2, fn=_globalResolution);
-    translate([0, 0, translate_z+ec/2])
+            cylinder (d=coulisse_d, h=Frame_L-2*coulisse_ec+coulisse_d-Frame_e*2, $fn=_globalResolution);
+    translate([0, 0, translate_z+Cross_ec/2])
         rotate([0,90,0]) bagueLaiton_8_12_30();
     
-    color("Silver") translate([0, Frame_l/2-coulisse_ec+coulisse_d/2-Frame_e, translate_z-ec/2])
+    color("Silver") translate([0, Frame_l/2-coulisse_ec+coulisse_d/2-Frame_e, translate_z-Cross_ec/2])
         rotate([90,0,0]) 
-            cylinder (d=coulisse_d, h=Frame_l-2*coulisse_ec+coulisse_d-Frame_e*2, fn=_globalResolution);
-    translate([0, 0, translate_z-ec/2])
+            cylinder (d=coulisse_d, h=Frame_l-2*coulisse_ec+coulisse_d-Frame_e*2, $fn=_globalResolution);
+    translate([0, 0, translate_z-Cross_ec/2])
         rotate([90,0,0]) bagueLaiton_8_12_30();
 }
 
@@ -116,6 +116,10 @@ module all_rails() {
     railsX();
     railsY();
     railsCross();
+}
+
+module all_slicer() {
+    translate([+Frame_L/2-coulisse_ec-Frame_e, 0, Frame_h-coulisse_eh-coulisse_e]) slicer();
 }
 
 module all_angle() {
@@ -158,6 +162,8 @@ module all() {
     all_rails();
     
     all_angle();
+    
+    all_slicer();
     
     translate([0,-Frame_l/2+Frame_e,Frame_e]) rotate([0,0,90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
     translate([0,+Frame_l/2-Frame_e,Frame_e]) rotate([0,0,-90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
