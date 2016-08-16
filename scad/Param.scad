@@ -19,6 +19,8 @@ nema17_axe_d=5.2;
 Pulley_GT2_8_e=17;
 Pulley_GT2_8_D=26;
 
+BagueLaiton_D=12;
+
 _globalResolution = 64;
 
 // Data

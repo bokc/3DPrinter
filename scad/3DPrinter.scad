@@ -24,48 +24,43 @@ module frame() {
     }
 }
 
-module coulissesX() {
+module railsX() {
     translate_x=Frame_L/2;
     translate_Y=Frame_l/2-coulisse_ec-Frame_e;
-    translate_y=Frame_h-coulisse_eh;
+    translate_H=Frame_h-coulisse_eh;
     
-    color("Silver") translate([translate_x, -translate_Y, translate_y])
+    color("Silver") translate([translate_x, -translate_Y, translate_H])
         rotate([0,-90,0]) 
             cylinder (d=coulisse_d, h=axe_x, fn=_globalResolution);
-    color("Silver") translate([-translate_x, translate_Y, translate_y])
+    color("Silver") translate([-translate_x, translate_Y, translate_H])
         rotate([0,90,0]) 
             cylinder (d=coulisse_d, h=axe_x, fn=_globalResolution);
-
-    color("Silver") translate([-translate_x+coulisse_ec-coulisse_d/2+Frame_e, 0, translate_y])
-        rotate([0,90,0]) 
-            cylinder (d=coulisse_d, h=Frame_L-2*coulisse_ec+coulisse_d-Frame_e*2, fn=_globalResolution);
     
-    translate([0, -translate_Y, translate_y])
+    translate([0, -translate_Y, translate_H])
         rotate([0,90,0]) bagueLaiton_8_12_30();
-    translate([0, translate_Y, translate_y])
+    translate([0, translate_Y, translate_H])
         rotate([0,90,0]) bagueLaiton_8_12_30();
-    translate([0, 0, translate_y])
-        rotate([0,90,0]) bagueLaiton_8_12_30();
+
         
     translate([-Frame_L/2+r608z_e+Frame_e+angle_e+Pulley_GT2_8_e,
         -translate_Y,
-        translate_y])
+        translate_H])
             rotate([0,-90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
     translate([-Frame_L/2+r608z_e+Frame_e+angle_e+Pulley_GT2_8_e,
         translate_Y,
-        translate_y])
+        translate_H])
             rotate([0,-90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
     translate([Frame_L/2-r608z_e-Frame_e-angle_e-Pulley_GT2_8_e,
         -translate_Y,
-        translate_y])
+        translate_H])
             rotate([0,90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
     translate([Frame_L/2-r608z_e-Frame_e-angle_e-Pulley_GT2_8_e,
         translate_Y,
-        translate_y])
+        translate_H])
             rotate([0,90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
 }
 
-module coulissesY() {
+module railsY() {
     translate_x=Frame_L/2-coulisse_ec-Frame_e;
     translate_Y=Frame_l/2;
     translate_z=Frame_h-coulisse_eh-coulisse_e;
@@ -77,15 +72,9 @@ module coulissesY() {
         rotate([-90,0,0]) 
             cylinder (d=coulisse_d, h=axe_y, fn=_globalResolution);
 
-    color("Silver") translate([0, translate_Y-coulisse_ec+coulisse_d/2-Frame_e, translate_z])
-        rotate([90,0,0]) 
-            cylinder (d=coulisse_d, h=Frame_l-2*coulisse_ec+coulisse_d-Frame_e*2, fn=_globalResolution);
-    
     translate([-translate_x, 0, translate_z])
         rotate([90,0,0]) bagueLaiton_8_12_30();
     translate([translate_x, 0, translate_z])
-        rotate([90,0,0]) bagueLaiton_8_12_30();
-    translate([0, 0, translate_z])
         rotate([90,0,0]) bagueLaiton_8_12_30();
         
     translate([-translate_x,
@@ -106,9 +95,27 @@ module coulissesY() {
             rotate([-90,0,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
 }
 
-module all_coulisse() {
-    coulissesX();
-    coulissesY();
+module railsCross() {
+    translate_z = Frame_h-coulisse_eh-coulisse_e/2;
+    ec = BagueLaiton_D+1;
+    
+    color("Silver") translate([-Frame_L/2+coulisse_ec-coulisse_d/2+Frame_e, 0, translate_z+ec/2])
+        rotate([0,90,0]) 
+            cylinder (d=coulisse_d, h=Frame_L-2*coulisse_ec+coulisse_d-Frame_e*2, fn=_globalResolution);
+    translate([0, 0, translate_z+ec/2])
+        rotate([0,90,0]) bagueLaiton_8_12_30();
+    
+    color("Silver") translate([0, Frame_l/2-coulisse_ec+coulisse_d/2-Frame_e, translate_z-ec/2])
+        rotate([90,0,0]) 
+            cylinder (d=coulisse_d, h=Frame_l-2*coulisse_ec+coulisse_d-Frame_e*2, fn=_globalResolution);
+    translate([0, 0, translate_z-ec/2])
+        rotate([90,0,0]) bagueLaiton_8_12_30();
+}
+
+module all_rails() {
+    railsX();
+    railsY();
+    railsCross();
 }
 
 module all_angle() {
@@ -147,8 +154,8 @@ module all_angle() {
 }
 
 module all() {
-    frame();
-    all_coulisse();
+    //frame();
+    all_rails();
     
     all_angle();
     
@@ -158,18 +165,4 @@ module all() {
 
 all();
 
-translate ([Frame_L/2 + 30, 0 , 0]) {
-    bagueLaiton_8_12_30();
-}
-
-translate ([Frame_L/2 + 70, 0 , 0]) {
-    nema_17();
-}
-translate ([Frame_L/2 + 120, 0 , 0]) {
-import("../stl/Pulley_GT2_35tooth_5mm.stl");
-}
-
-translate ([Frame_L/2 + 150, 0 , 0]) {
-import("../stl/Pulley_GT2_35tooth_8mm.stl");
-}
 
