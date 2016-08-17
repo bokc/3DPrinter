@@ -22,6 +22,8 @@ Pulley_GT2_8_D=26;
 BagueLaiton_D=12;
 BagueLaiton_L=30;
 
+Vis_m3_p = 3.2;
+
 _globalResolution = 64;
 
 // Data
