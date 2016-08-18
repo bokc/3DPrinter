@@ -27,8 +27,8 @@ Vis_m3_p = 3.2;
 _globalResolution = 64;
 
 // Data
-Frame_L = axe_x-Pulley_GT2_8_e-angle_e;
-Frame_l = axe_y-Pulley_GT2_8_e-angle_e;
+Frame_L = axe_x-Pulley_GT2_8_e-angle_e+Frame_e;
+Frame_l = axe_y-Pulley_GT2_8_e-angle_e+Frame_e;
 Frame_h = axe_z;
 
 coulisse_e = 3*coulisse_d;

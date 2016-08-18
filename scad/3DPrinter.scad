@@ -26,7 +26,7 @@ module frame() {
 }
 
 module railsX() {
-    translate_x=Frame_L/2;
+    translate_x=Frame_L/2-Frame_e;
     translate_Y=Frame_l/2-coulisse_ec-Frame_e;
     translate_H=Frame_h-coulisse_eh;
     
@@ -63,7 +63,7 @@ module railsX() {
 
 module railsY() {
     translate_x=Frame_L/2-coulisse_ec-Frame_e;
-    translate_Y=Frame_l/2;
+    translate_Y=Frame_l/2-Frame_e;
     translate_z=Frame_h-coulisse_eh-coulisse_e;
     
     color("Silver") translate([-translate_x, -translate_Y, translate_z])
