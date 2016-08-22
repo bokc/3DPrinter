@@ -6,6 +6,7 @@ use <AxeZ.scad>;
 use <Bearing.scad>;
 use <Angle.scad>;
 use <slicer.scad>;
+use <tools/timing_belts.scad>;
 
 module frame() {
     front_h=angle_h+7;
@@ -160,6 +161,17 @@ module all_angle() {
     translate([-Frame_L/2-e,-Frame_l/2+coulisse_ec+Frame_e,Frame_h-coulisse_eh]) rotate([0,-90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
 }
 
+
+module belt() {
+    l = Frame_L-2*coulisse_ec-2*Frame_e;
+    L = -Frame_l/2+Frame_e+r608z_e+Pulley_GT2_8_tooth_w+GT2_w;
+    h = Frame_h-coulisse_eh-coulisse_e;
+    color("black") translate([-l/2,L,h+Pulley_GT2_8_D/2]) rotate([-90,0,0]) belt_len(profile = 0, belt_width = GT2_w, len = l);
+    color("black") translate([-l/2,L,h-Pulley_GT2_8_D/2]) rotate([90,0,0]) belt_len(profile = 0, belt_width = GT2_w, len = l);
+    color("black") translate([-l/2,L,h-Pulley_GT2_8_D/2]) rotate([90,0,180]) belt_angle(profile = 0, rad=Pulley_GT2_8_D/2, bwdth= GT2_w, angle=180, fn=_globalResolution);
+    color("black") translate([+l/2,L,h-Pulley_GT2_8_D/2]) rotate([90,0,0]) belt_angle(profile = 0, rad=Pulley_GT2_8_D/2, bwdth= GT2_w, angle=180, fn=_globalResolution);
+}
+
 module all() {
     //frame();
     all_rails();
@@ -167,6 +179,8 @@ module all() {
     all_angle();
     
     all_slicer();
+    
+    belt();
     
     translate([0,-Frame_l/2+Frame_e,Frame_e]) rotate([0,0,90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
     translate([0,+Frame_l/2-Frame_e,Frame_e]) rotate([0,0,-90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
