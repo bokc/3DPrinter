@@ -16,15 +16,18 @@ r608z_e=7;
 nema17_L=42;
 nema17_axe_d=5.2;
 
-Pulley_GT2_8_e=17;
+Pulley_GT2_8_e=17.5;
 Pulley_GT2_8_D=26;
+Pulley_GT2_8_tooth_w=6.2;
+
+GT2_w=5;
 
 BagueLaiton_D=12;
 BagueLaiton_L=30;
 
 Vis_m3_p = 3.2;
 
-_globalResolution = 64;
+_globalResolution = 32;
 
 // Data
 Frame_L = axe_x-Pulley_GT2_8_e-angle_e+Frame_e;

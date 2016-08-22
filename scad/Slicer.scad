@@ -7,7 +7,7 @@ module slicer_axe() {
         cylinder(d=coulisse_d+1,h=BagueLaiton_L*2,$fn=_globalResolution );
     rotate([90,0,0]) bagueLaiton_8_12_30();
     
-    translate([-BagueLaiton_L*2+BagueLaiton_D/2+5,0,coulisse_e/2+Cross_ec/2]) rotate([0,90,0])
+    translate([-BagueLaiton_L*2+BagueLaiton_D/2+2.6,0,coulisse_e/2+Cross_ec/2]) rotate([0,90,0])
         cylinder(d=coulisse_d,h=BagueLaiton_L*2,$fn=_globalResolution );
 }
 
@@ -31,7 +31,7 @@ module gt2tensioner(L = 20, l=12, h=7) {
     difference() {
         color("red") gt2tensioner_cors(L, l ,h);
         translate([Vis_m3_p,-0.1,h/2]) rotate([-90,0,0]) cylinder(d=Vis_m3_p, h=L+0.2,$fn=_globalResolution);
-        translate([9+0.1,-0.1,h/2]) rotate([-90,0,90]) belt_len(profile = 0, belt_width = 6, len = L+0.2);
+        translate([9+0.1,-0.1,h/2]) rotate([90,0,90]) belt_len(profile = 0, belt_width = 6, len = L+0.2);
     }
     
 }
@@ -39,6 +39,9 @@ module gt2tensioner(L = 20, l=12, h=7) {
 module slicer() {
     L = BagueLaiton_D + 10;
     h = Cross_ec+BagueLaiton_D;
+    h_belt = coulisse_e-Pulley_GT2_8_D/2;
+    belt_fix_h = 10;
+    belt_fix_l = coulisse_ec-r608z_e-Pulley_GT2_8_tooth_w-14;
     
     bas_d=BagueLaiton_D+5;
     bas_l=BagueLaiton_L + 2*2;
@@ -58,7 +61,7 @@ module slicer() {
             translate([-haut_l+bas_d/2,1,coulisse_e/2+Cross_ec/2+coulisse_d/2+1]) cube([haut_l,2,5]);
             translate([-haut_l+bas_d/2,-3,coulisse_e/2+Cross_ec/2+coulisse_d/2+1]) cube([haut_l,2,5]);
             // GT2
-            translate([0,-bas_l/2,h/2]) cube([14, bas_l, 10]);
+            translate([belt_fix_l,-bas_l/2,h_belt-belt_fix_h/2]) cube([14, bas_l, belt_fix_h]);
         };
         slicer_axe();
         translate([-haut_l+bas_d/2-0.1,-1,coulisse_e/2+Cross_ec/2-coulisse_d/2+0.1]) cube([haut_l+0.2,2,haut_d]);
@@ -71,15 +74,15 @@ module slicer() {
         translate([0,-haut_l*1/3,0]) fixBas();
         
         //GT2
-        translate([11+0.1,-bas_l/2-0.1,h/2+5]) rotate([-90,0,90]) belt_len(profile = 0, belt_width = 6, len = bas_l/2+0.2);
-        translate([0.75,-0.1,h/2+1.5]) gt2tensioner_cors(bas_l/2+0.2, 12.5, 7.5);
-        translate([Vis_m3_p+0.75,0.1,h/2+7.5/2+Vis_m3_p/2]) rotate([90,0,0]) cylinder(d=Vis_m3_p, h=L+0.2,$fn=_globalResolution);
+        translate([belt_fix_l+11+0.1,-bas_l/2-0.1,h_belt-belt_fix_h/2+5]) rotate([90,0,90]) belt_len(profile = 0, belt_width = 6, len = bas_l/2+0.2);
+        translate([belt_fix_l+0.75,-0.1,h_belt-belt_fix_h/2+1.5]) gt2tensioner_cors(bas_l/2+0.2, 12.5, 7.5);
+        translate([belt_fix_l+Vis_m3_p+0.75,0.1,h_belt-belt_fix_h/2+7.5/2+Vis_m3_p/2]) rotate([90,0,0]) cylinder(d=Vis_m3_p, h=L+0.2,$fn=_globalResolution);
     }
 }
 
 module slicer_withTensioner() {
     slicer();
-    translate([0.87,0,Cross_ec/2+BagueLaiton_D/2+1.75]) gt2tensioner();
+    translate([coulisse_ec-r608z_e-Pulley_GT2_8_tooth_w-14+0.87,0,coulisse_e-Pulley_GT2_8_D/2-5+1.75]) gt2tensioner();
 }
 
 slicer_withTensioner();
