@@ -161,15 +161,34 @@ module all_angle() {
     translate([-Frame_L/2-e,-Frame_l/2+coulisse_ec+Frame_e,Frame_h-coulisse_eh]) rotate([0,-90,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
 }
 
+module belt(l,r) {
+    color("black") union() {
+        translate([-l/2,0,r]) rotate([-90,0,0]) belt_len(profile = 0, belt_width = GT2_w, len = l);
+        translate([-l/2,0,-r]) rotate([90,0,0]) belt_len(profile = 0, belt_width = GT2_w, len = l);
+        translate([-l/2,0,-r]) rotate([90,0,180]) belt_angle(profile = 0, rad=r, bwdth= GT2_w, angle=180, fn=_globalResolution);
+        translate([+l/2,0,-r]) rotate([90,0,0]) belt_angle(profile = 0, rad=r, bwdth= GT2_w, angle=180, fn=_globalResolution);
+    }
+}
 
-module belt() {
+module belt_x() {
     l = Frame_L-2*coulisse_ec-2*Frame_e;
     L = -Frame_l/2+Frame_e+r608z_e+Pulley_GT2_8_tooth_w+GT2_w;
     h = Frame_h-coulisse_eh-coulisse_e;
-    color("black") translate([-l/2,L,h+Pulley_GT2_8_D/2]) rotate([-90,0,0]) belt_len(profile = 0, belt_width = GT2_w, len = l);
-    color("black") translate([-l/2,L,h-Pulley_GT2_8_D/2]) rotate([90,0,0]) belt_len(profile = 0, belt_width = GT2_w, len = l);
-    color("black") translate([-l/2,L,h-Pulley_GT2_8_D/2]) rotate([90,0,180]) belt_angle(profile = 0, rad=Pulley_GT2_8_D/2, bwdth= GT2_w, angle=180, fn=_globalResolution);
-    color("black") translate([+l/2,L,h-Pulley_GT2_8_D/2]) rotate([90,0,0]) belt_angle(profile = 0, rad=Pulley_GT2_8_D/2, bwdth= GT2_w, angle=180, fn=_globalResolution);
+    translate([0,L,h]) belt(l, Pulley_GT2_8_D/2);
+    translate([0,-L,h]) belt(l, Pulley_GT2_8_D/2);
+}
+
+module belt_y() {
+    l = Frame_l-2*coulisse_ec-2*Frame_e;
+    L = -Frame_L/2+Frame_e+r608z_e+Pulley_GT2_8_tooth_w+GT2_w;
+    h = Frame_h-coulisse_eh;
+    translate([L,0,h]) rotate([0,0,90]) belt(l, Pulley_GT2_8_D/2);
+    translate([-L,0,h]) rotate([0,0,90])belt(l, Pulley_GT2_8_D/2);
+}
+
+module all_belt() {
+    belt_x();
+    belt_y();
 }
 
 module all() {
@@ -180,10 +199,10 @@ module all() {
     
     all_slicer();
     
-    belt();
+    all_belt();
     
-    translate([0,-Frame_l/2+Frame_e,Frame_e]) rotate([0,0,90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
-    translate([0,+Frame_l/2-Frame_e,Frame_e]) rotate([0,0,-90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
+    //translate([0,-Frame_l/2+Frame_e,Frame_e]) rotate([0,0,90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
+    //translate([0,+Frame_l/2-Frame_e,Frame_e]) rotate([0,0,-90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
 }
 
 all();
