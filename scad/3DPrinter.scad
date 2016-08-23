@@ -105,12 +105,17 @@ module railsCross() {
             cylinder (d=coulisse_d, h=Frame_L-2*coulisse_ec+coulisse_d-Frame_e*2, $fn=_globalResolution);
     translate([0, 0, translate_z+Cross_ec/2])
         rotate([0,90,0]) bagueLaiton_8_12_30();
+    color("black") translate([-Frame_L/3+coulisse_ec+Frame_e, -5, translate_z+Cross_ec/2+coulisse_d/2])
+        rotate([0,0,0]) text(text = str(Frame_L-2*coulisse_ec+coulisse_d-Frame_e*2));
     
     color("Silver") translate([0, Frame_l/2-coulisse_ec+coulisse_d/2-Frame_e, translate_z-Cross_ec/2])
         rotate([90,0,0]) 
             cylinder (d=coulisse_d, h=Frame_l-2*coulisse_ec+coulisse_d-Frame_e*2, $fn=_globalResolution);
     translate([0, 0, translate_z-Cross_ec/2])
         rotate([90,0,0]) bagueLaiton_8_12_30();
+    color("black") translate([5, -Frame_l/3+coulisse_ec+Frame_e, translate_z-Cross_ec/2+coulisse_d/2])
+        rotate([0,0,90]) text(text = str(Frame_l-2*coulisse_ec+coulisse_d-Frame_e*2));
+    
 }
 
 module all_rails() {
