@@ -1,7 +1,7 @@
 
 //axe : disponible : 320*2/350*2/370*2/470*4/405*2
-axe_x = 350;
-axe_y = 405;
+axe_x = 370;
+axe_y = 470;
 axe_z = 370;
 
 Frame_e = 16;
@@ -27,7 +27,7 @@ BagueLaiton_L=30;
 
 Vis_m3_p = 3.2;
 
-_globalResolution = 32;
+_globalResolution = 16;
 
 // Data
 Frame_L = axe_x-Pulley_GT2_8_e-angle_e+Frame_e;
@@ -35,8 +35,8 @@ Frame_l = axe_y-Pulley_GT2_8_e-angle_e+Frame_e;
 Frame_h = axe_z;
 
 coulisse_e = 3*coulisse_d;
-coulisse_eh = r608z_D+5;
-coulisse_ec = r608z_D+12;
+coulisse_eh = r608z_D+3;
+coulisse_ec = r608z_D+10;
 
 Cross_ec = BagueLaiton_D+1;
 
