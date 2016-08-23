@@ -41,12 +41,12 @@ module slicer() {
     h = Cross_ec+BagueLaiton_D;
     h_belt = coulisse_e-Pulley_GT2_8_D/2;
     belt_fix_h = 10;
-    belt_fix_l = coulisse_ec-r608z_e-Pulley_GT2_8_tooth_w-14;
+    belt_fix_l = coulisse_ec-r608z_e-Pulley_GT2_8_tooth_w-16;
     
     bas_d=BagueLaiton_D+5;
     bas_l=BagueLaiton_L + 2*2;
     haut_d=coulisse_d+4;
-    haut_l = coulisse_d*2;
+    haut_l = bas_d;
     
     difference() {
         color("blue") union() {
@@ -82,7 +82,7 @@ module slicer() {
 
 module slicer_withTensioner() {
     slicer();
-    translate([coulisse_ec-r608z_e-Pulley_GT2_8_tooth_w-14+0.87,0,coulisse_e-Pulley_GT2_8_D/2-5+1.75]) gt2tensioner();
+    translate([coulisse_ec-r608z_e-Pulley_GT2_8_tooth_w-16+0.87,0,coulisse_e-Pulley_GT2_8_D/2-5+1.75]) gt2tensioner();
 }
 
 slicer_withTensioner();
