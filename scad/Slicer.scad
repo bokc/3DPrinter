@@ -27,7 +27,7 @@ module gt2tensioner_cors(L = 20, l=12, h=7) {
     }
 }
 
-module gt2tensioner(L = 20, l=12, h=7) {
+module gt2tensioner(L = 18, l=12, h=7) {
     difference() {
         color("red") gt2tensioner_cors(L, l ,h);
         translate([Vis_m3_p,-0.1,h/2]) rotate([-90,0,0]) cylinder(d=Vis_m3_p, h=L+0.2,$fn=_globalResolution);
@@ -61,7 +61,7 @@ module slicer() {
             translate([-haut_l+bas_d/2,1,coulisse_e/2+Cross_ec/2+coulisse_d/2+1]) cube([haut_l,2,5]);
             translate([-haut_l+bas_d/2,-3,coulisse_e/2+Cross_ec/2+coulisse_d/2+1]) cube([haut_l,2,5]);
             // GT2
-            translate([belt_fix_l,-bas_l/2,h_belt-belt_fix_h/2]) cube([14, bas_l, belt_fix_h]);
+            translate([belt_fix_l,-bas_l/2+2,h_belt-belt_fix_h/2]) cube([14, bas_l-4, belt_fix_h]);
         };
         slicer_axe();
         translate([-haut_l+bas_d/2-0.1,-1,coulisse_e/2+Cross_ec/2-coulisse_d/2+0.1]) cube([haut_l+0.2,2,haut_d]);
