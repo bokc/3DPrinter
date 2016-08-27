@@ -6,7 +6,7 @@ axe_z = 370;
 
 Frame_e = 16;
 coulisse_d = 8;
-angle_e=5;
+angle_e=3.5;
 
 // Constant
 r608z_d=8;
@@ -20,7 +20,7 @@ Pulley_GT2_8_e=17.5;
 Pulley_GT2_8_D=26;
 Pulley_GT2_8_tooth_w=6.2;
 
-GT2_w=5;
+GT2_w=6;
 
 BagueLaiton_D=12;
 BagueLaiton_L=30;
