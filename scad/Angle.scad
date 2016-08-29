@@ -69,7 +69,7 @@ module angle_2(L,l,e,H) {
             mirror([1,0,0]) angle_1(L,l,e,H);
             difference(){
                 color("Red") translate([-Frame_e-2.5*e-nema17_L,Frame_e,-nema17_L-coulisse_e+e]) cube([l+2.5*e+Frame_e+nema17_L,e,support_h]);
-                translate([-Frame_e-e*2.6,Frame_e+e,-coulisse_ec]) rotate([0,0,90]) nema_fixation(e,2*e,_globalResolution);
+                translate([-Frame_e-16,Frame_e+e,-coulisse_ec]) rotate([0,0,90]) nema_fixation(e,2*e,_globalResolution);
                 mirror([1,0,0]) angle_coulisses(L,e);
             }
         }
@@ -100,7 +100,7 @@ module angle_4(L,l,e,H) {
             mirror([1,0,0]) mirror([0,1,0]) angle_1(L,l,e,H);
             difference(){
                 color("Red") translate([-Frame_e-e,-Frame_e-2.5*e-nema17_L,-nema17_L-coulisse_e+e]) cube([e,l+2.5*e+Frame_e+nema17_L,support_h]);
-                translate([-Frame_e,-nema17_L-Frame_e-.9*e,-coulisse_ec]) nema_fixation(e,2*e,_globalResolution);
+                translate([-Frame_e,-nema17_L-Frame_e+3,-coulisse_ec]) nema_fixation(e,2*e,_globalResolution);
                 mirror([1,0,0]) mirror([0,1,0]) angle_coulisses(L,e);
             }
         }
@@ -119,11 +119,11 @@ module angle_r608z_4(e,H) {
 L = coulisse_ec+r608z_D;
 l = coulisse_ec+r608z_D;
 H = coulisse_e+coulisse_eh+r608z_D;
-e = 5;
+e = angle_e;
 espace = 60;
 
-translate([espace,espace,0]) angle_1(L,l,e,H);
+translate([espace,-espace,e]) rotate([180,,0]) angle_1(L,l,e,H);
 //color("blue") translate([espace,espace,0]) angle_percages(l,e,H);
-translate([-espace,espace,0]) angle_2(L,l,e,H);
-translate([espace,-espace,0]) angle_3(L,l,e,H);
-translate([-espace,-espace,0]) angle_4(L,l,e,H);
+translate([-espace, -espace,e]) rotate([180,,0]) angle_2(L,l,e,H);
+translate([espace, espace,e]) rotate([180,,0]) angle_3(L,l,e,H);
+translate([-espace,espace,e]) rotate([180,,0]) angle_4(L,l,e,H);
