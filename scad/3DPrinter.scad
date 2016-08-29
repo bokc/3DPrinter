@@ -129,6 +129,8 @@ module all_slicer() {
     translate([-Frame_L/2+coulisse_ec+Frame_e, 0, Frame_h-coulisse_eh-coulisse_e]) rotate([0,0,180]) slicer_withTensioner();
     translate([0, Frame_l/2-coulisse_ec-Frame_e, Frame_h-coulisse_eh]) rotate([180,0,90]) slicer_withTensioner();
     translate([0, -Frame_l/2+coulisse_ec+Frame_e, Frame_h-coulisse_eh]) rotate([180,0,-90]) slicer_withTensioner();
+    
+    translate([0,0,Frame_h-coulisse_eh-coulisse_e/2-Cross_ec/2]) slicer_central();
 }
 
 module all_angle() {

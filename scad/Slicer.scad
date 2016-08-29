@@ -1,6 +1,7 @@
 include <Param.scad>;
 use <Bearing.scad>;
 use <tools/timing_belts.scad>;
+use <tools/e3d_v6_chimera.scad>;
 
 module slicer_axe() {
     translate([0,BagueLaiton_L,0]) rotate([90,0,0])
@@ -85,5 +86,43 @@ module slicer_withTensioner() {
     translate([coulisse_ec-r608z_e-Pulley_GT2_8_tooth_w-16+0.87,0,coulisse_e-Pulley_GT2_8_D/2-5+1.75]) gt2tensioner();
 }
 
+module slicer_axe_central() {
+    //bas
+    union() {
+        translate([0,BagueLaiton_L,0]) rotate([90,0,0])
+            cylinder(d=coulisse_d+1,h=BagueLaiton_L*2,$fn=_globalResolution );
+        rotate([90,0,0]) bagueLaiton_8_12_30();
+    }
+    //haut
+    union() {
+        translate([-BagueLaiton_L,0,Cross_ec]) rotate([0,90,0])
+            cylinder(d=coulisse_d+1,h=BagueLaiton_L*2,$fn=_globalResolution );
+        translate([0,0,Cross_ec])rotate([0,90,0]) bagueLaiton_8_12_30();
+    }
+}
+
+module slicer_central() {
+    bas_d=BagueLaiton_D+5;
+    bas_l=BagueLaiton_L + 2*2;
+    
+    difference() {
+        color("blue") hull() {
+            //bas
+            translate([0,bas_l/2,0]) rotate([90,0,0])
+                cylinder(d=bas_d,h=bas_l,$fn=_globalResolution );
+            //haut
+            translate([-bas_l/2,0,Cross_ec]) rotate([0,90,0])
+                cylinder(d=bas_d,h=bas_l,$fn=_globalResolution );
+        };
+        slicer_axe_central();
+        translate([-bas_d, -bas_l/2-0.1,-bas_d/2-1.5]) cube([bas_d*2, bas_l+0.2, bas_d/2]);
+        translate([-bas_l/2-0.1, -bas_d,Cross_ec+1.5]) cube([bas_l+0.2, bas_d*2, bas_d/2]);
+    }
+}
+
 slicer_withTensioner();
+
+translate([50,0,0]) slicer_central();
+
+translate([100,0,0]) e3d();
 
