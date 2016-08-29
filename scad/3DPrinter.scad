@@ -130,7 +130,7 @@ module all_slicer() {
     translate([0, Frame_l/2-coulisse_ec-Frame_e, Frame_h-coulisse_eh]) rotate([180,0,90]) slicer_withTensioner();
     translate([0, -Frame_l/2+coulisse_ec+Frame_e, Frame_h-coulisse_eh]) rotate([180,0,-90]) slicer_withTensioner();
     
-    translate([0,0,Frame_h-coulisse_eh-coulisse_e/2-Cross_ec/2]) slicer_central();
+    translate([0,0,Frame_h-coulisse_eh-coulisse_e/2-Cross_ec/2]) slicer_central_with_e3d();
 }
 
 module all_angle() {

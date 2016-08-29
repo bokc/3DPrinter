@@ -117,12 +117,33 @@ module slicer_central() {
         slicer_axe_central();
         translate([-bas_d, -bas_l/2-0.1,-bas_d/2-1.5]) cube([bas_d*2, bas_l+0.2, bas_d/2]);
         translate([-bas_l/2-0.1, -bas_d,Cross_ec+1.5]) cube([bas_l+0.2, bas_d*2, bas_d/2]);
+        
+        translate([0,-BagueLaiton_D,-BagueLaiton_D]) e3d_fix();
     }
+    
+    
 }
 
-slicer_withTensioner();
+module e3d_fix() {
+    //vis
+    translate([8.5,-9,0]) cylinder(d=Vis_m3_p,h=30,$fn=_globalResolution );
+    translate([-8.5,-9,0]) cylinder(d=Vis_m3_p,h=30,$fn=_globalResolution );
+    translate([0,3,0]) cylinder(d=Vis_m3_p,h=30,$fn=_globalResolution );
+    
+    //bowden
+    translate([9,0,0]) cylinder(d=8,h=30,$fn=_globalResolution );
+    translate([-9,0,0]) cylinder(d=8,h=30,$fn=_globalResolution );
+    
+    //pour control
+    //translate([0,-0,-30]) e3d();
+}
 
-translate([50,0,0]) slicer_central();
+module slicer_central_with_e3d() {
+    slicer_central();
+    color("silver") translate([0,-BagueLaiton_D,-30-BagueLaiton_D/2]) e3d();
+}
+//slicer_withTensioner();
 
-translate([100,0,0]) e3d();
+translate([50,0,0]) slicer_central_with_e3d();
+
 
