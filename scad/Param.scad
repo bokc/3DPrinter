@@ -27,6 +27,13 @@ BagueLaiton_L=30;
 
 Vis_m3_p = 3.2;
 
+// resolution of round object. each line segment is fnr mm long. fnr = 1 crude and good for development (its faster), aim for fnr = 0.4 or smaller for a production render. smaller means more details (and a lot more time to render).
+resolution = 0.4;
+// detail level
+detaillevel = 1; // [0:coarse render only outlines,1:fine render with all details]
+// 
+withfan = 0; // [0:render without fan frame,1:render with fan frame]
+
 _globalResolution = 16;
 
 // Data
