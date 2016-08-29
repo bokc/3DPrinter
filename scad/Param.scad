@@ -35,7 +35,7 @@ Frame_l = axe_y-Pulley_GT2_8_e-angle_e+Frame_e;
 Frame_h = axe_z;
 
 coulisse_e = 3*coulisse_d;
-coulisse_eh = r608z_D+3;
+coulisse_eh = (r608z_D*1.7)/2+4;
 coulisse_ec = r608z_D+10;
 
 Cross_ec = BagueLaiton_D+1;

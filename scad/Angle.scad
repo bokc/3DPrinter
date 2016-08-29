@@ -11,18 +11,18 @@ module angle_percages(L, e, H) {
     translate([Frame_e/2, -L/3,-0.1]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
     
     //Y
-    translate([-15,0.1,-e-Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
-    translate([-L+10,0.1,-e-Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([-15,0.1,-e-Frame_e]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([-L+10,0.1,-e-Frame_e]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
     translate([-15,0.1,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
-    translate([-L+10,0.1,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e*2+0.2, $fn=_globalResolution);
-    translate([-L+10,-e,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=7, h=e, $fn=_globalResolution); //Tete de vis
+    translate([-L+10,0.1+e,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=4.2, h=e*2+0.2, $fn=_globalResolution);
+    translate([-L+10,-e,-H+Frame_e/2]) rotate([90,0,0]) cylinder(d=7, h=e*2, $fn=_globalResolution); //Tete de vis
     
     //x
-    translate([-e-0.1,-15,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
-    translate([-e*2-0.1,-L+10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e*2+0.2, $fn=_globalResolution);
-    translate([-e*2-0.1,-L+10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=7, h=e, $fn=_globalResolution); //Tete de vis
-    translate([-e-0.1,-15,-H+Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
-    translate([-e-0.1, -L+10,-H+Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution);
+    translate([-e-0.1,-15,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution); // Haut droite
+    translate([-e*2-0.1,-L+10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=4.2, h=e*2+0.2, $fn=_globalResolution); // Haut gauche
+    translate([-e*3-0.1,-L+10,-e-Frame_e/2]) rotate([0,90,0]) cylinder(d=7, h=e*2, $fn=_globalResolution); //Tete de vis Haut gauche
+    translate([-e-0.1,-15,-H+Frame_e]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution); // Bas droite
+    translate([-e-0.1, -L+10,-H+Frame_e]) rotate([0,90,0]) cylinder(d=4.2, h=e+0.2, $fn=_globalResolution); // Bas gauche
 }
 
 module angle_coulisses(L,e) {
@@ -31,7 +31,7 @@ module angle_coulisses(L,e) {
 }
 
 module angle_1(L,l,e,H) {
-    retour_h = 15;
+    retour_h = 7;
     difference(){
         translate([-L,-l,-H]) {
             color("Red") union() {
