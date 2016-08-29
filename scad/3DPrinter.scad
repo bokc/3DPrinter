@@ -147,7 +147,7 @@ module all_angle() {
         angle_2(L,l,e,H);
         angle_r608z_2(e,H);
     }
-    translate([-Frame_l/2,Frame_L/2+nema17_L/2+e,Frame_h-coulisse_ec]) rotate([-90,0,0]) nema_17();
+    translate([-Frame_L/2-nema17_L/2-e,Frame_l/2,Frame_h-coulisse_ec]) rotate([-90,0,0]) nema_17();
     
     translate([-Frame_L/2-nema17_L/2-e,Frame_l/2+e,Frame_h-coulisse_ec]) rotate([-90,0,0]) import("../stl/Pulley_GT2_35tooth_5mm.stl");
     translate([-Frame_L/2+coulisse_ec+Frame_e,Frame_l/2+e,Frame_h-coulisse_eh-coulisse_e]) rotate([-90,0,0]) import("../stl/Pulley_GT2_35tooth_8mm.stl");
