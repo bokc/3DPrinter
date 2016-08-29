@@ -105,22 +105,29 @@ module slicer_central() {
     bas_d=BagueLaiton_D+5;
     bas_l=BagueLaiton_L + 2*2;
     
-    difference() {
-        color("blue") hull() {
-            //bas
-            translate([0,bas_l/2,0]) rotate([90,0,0])
-                cylinder(d=bas_d,h=bas_l,$fn=_globalResolution );
-            //haut
-            translate([-bas_l/2,0,Cross_ec]) rotate([0,90,0])
-                cylinder(d=bas_d,h=bas_l,$fn=_globalResolution );
-        };
-        slicer_axe_central();
-        translate([-bas_d, -bas_l/2-0.1,-bas_d/2-1.5]) cube([bas_d*2, bas_l+0.2, bas_d/2]);
-        translate([-bas_l/2-0.1, -bas_d,Cross_ec+1.5]) cube([bas_l+0.2, bas_d*2, bas_d/2]);
-        
-        translate([0,-BagueLaiton_D,-BagueLaiton_D]) e3d_fix();
+    union() {
+        difference() {    
+            color("blue") hull() {
+                //bas
+                translate([0,bas_l/2,0]) rotate([90,0,0])
+                    cylinder(d=bas_d,h=bas_l,$fn=_globalResolution );
+                //haut
+                translate([-bas_l/2,0,Cross_ec]) rotate([0,90,0])
+                    cylinder(d=bas_d,h=bas_l,$fn=_globalResolution );
+                
+            };
+
+            slicer_axe_central();
+            translate([-bas_d, -bas_l/2-0.1,-bas_d/2-1.5]) cube([bas_d*2, bas_l+0.2, bas_d/2]);
+            translate([-bas_l/2-0.1, -bas_d,Cross_ec+1.5]) cube([bas_l+0.2, bas_d*2, bas_d/2]);
+            
+            translate([BagueLaiton_D+4, 0,-4]) rotate([0,0,90]) #e3d_fix();
+        }
+        color("blue") union() {
+            translate([BagueLaiton_D/2, -30/2,-4]) cube([22, 30, 4]);
+            translate([BagueLaiton_D/2, -30/2,-20]) cube([4, 30, 16]);
+        }
     }
-    
     
 }
 
@@ -140,10 +147,10 @@ module e3d_fix() {
 
 module slicer_central_with_e3d() {
     slicer_central();
-    color("silver") translate([0,-BagueLaiton_D,-30-BagueLaiton_D/2]) e3d();
+    color("silver") translate([BagueLaiton_D+4,0,-30-4])  rotate([0,0,90]) e3d();
 }
 //slicer_withTensioner();
 
-translate([50,0,0]) slicer_central_with_e3d();
+slicer_central_with_e3d();
 
 
