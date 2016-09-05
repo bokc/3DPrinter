@@ -92,13 +92,13 @@ module slicer_axe_central() {
     union() {
         translate([0,L/2,0]) rotate([90,0,0])
             cylinder(d=coulisse_d+1,h=L,$fn=_globalResolution );
-        rotate([90,0,0]) bagueLaiton_8_12_30();
+        translate([0,BagueLaiton_L/2-BagueLaiton_D/2,0]) rotate([90,0,0]) bagueLaiton_8_12_30();
     }
     //haut
     union() {
         translate([-L/2,0,Cross_ec]) rotate([0,90,0])
             cylinder(d=coulisse_d+1,h=L,$fn=_globalResolution );
-        translate([0,0,Cross_ec])rotate([0,90,0]) bagueLaiton_8_12_30();
+        translate([BagueLaiton_L/2-BagueLaiton_D/2,0,Cross_ec])rotate([0,90,0]) bagueLaiton_8_12_30();
     }
 }
 
@@ -111,20 +111,19 @@ module slicer_central() {
             difference() {    
                 color("blue") hull() {
                     //bas
-                    translate([0,bas_l/2,0]) rotate([90,0,0])
+                    translate([0,bas_l-BagueLaiton_D/2-2,0]) rotate([90,0,0])
                         cylinder(d=bas_d,h=bas_l,$fn=_globalResolution );
                     //haut
-                    translate([-bas_l/2,0,Cross_ec]) rotate([0,90,0])
+                    translate([-BagueLaiton_D/2-2,0,Cross_ec]) rotate([0,90,0])
                         cylinder(d=bas_d,h=bas_l,$fn=_globalResolution );
                     
                 };
 
-                translate([-bas_d, -bas_l/2-0.1,-bas_d/2-1.5]) cube([bas_d*2, bas_l+0.2, bas_d/2]);
-                translate([-bas_l/2-0.1, -bas_d,Cross_ec+1.5]) cube([bas_l+0.2, bas_d*2, bas_d/2]);
+                translate([-bas_d, -BagueLaiton_D/2-2-0.5,-bas_d/2-1.5]) cube([bas_d*2, bas_l+1, bas_d/2]);
+                translate([-BagueLaiton_D/2-2-0.5, -bas_d,Cross_ec+1.5]) cube([bas_l+1, bas_d*2, bas_d/2]);
             }
-            color("blue") translate([BagueLaiton_D/2, coulisse_d/2+5,-1.5]) difference() {
+            color("blue") translate([BagueLaiton_D/2, coulisse_d/2+5,-1.5]) {
                 cube([22, 30, 4]);
-                translate([0, 0,-16]) cube([4, 30, 16]);
             }
         }
         slicer_axe_central();
