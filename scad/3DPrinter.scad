@@ -199,7 +199,7 @@ module all_belt() {
 }
 
 module all() {
-    //frame();
+    frame();
     all_rails();
     
     all_angle();
