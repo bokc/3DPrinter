@@ -83,6 +83,17 @@ module head_central_with_e3d() {
     translate([15/2+BagueLaiton_D/2+22, 30/2+coulisse_d/2+3, -30/2-1.5]) rotate([0,90,0]) fan(30, 15, 24, 3.2, 3,-45);
 }
 
-head_central_with_e3d();
+module head_fan() { 
+    r = 10;
+    scale_x=2;
+    scale_y=4;
+    scale_z=1;
+    difference() {
+        scale([scale_x,scale_y,scale_z]) sphere(r=r ,$fn=_globalResolution*2);
+        translate([-r*scale_x,-r*scale_y,-r*scale_z]) #cube([r*2*scale_x,r*2*scale_y,r*scale_z]);
+    }
+}
 
+translate([16,22,-50]) head_fan();
+head_central_with_e3d();
 //e3d_fix();
