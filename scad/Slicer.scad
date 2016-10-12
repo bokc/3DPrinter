@@ -1,6 +1,7 @@
 include <Param.scad>;
 use <Bearing.scad>;
 use <Proximity.scad>;
+use <fan.scad>;
 use <tools/timing_belts.scad>;
 use <tools/e3d_v6_chimera.scad>;
 
@@ -126,7 +127,7 @@ module slicer_central() {
                 translate([-bas_d, -BagueLaiton_D/2-2-0.5,-bas_d/2-1.5]) cube([bas_d*2, bas_l+1, bas_d/2]);
                 translate([-BagueLaiton_D/2-2-0.5, -bas_d,Cross_ec+1.5]) cube([bas_l+1, bas_d*2, bas_d/2]);
             }
-            translate([BagueLaiton_D/2, coulisse_d/2+5,-1.5]) {
+            translate([BagueLaiton_D/2, coulisse_d/2+3,-1.5]) {
                 cube([22, 30, 4]);
             }
             translate([-BagueLaiton_D/2-26/2, coulisse_d/2+5+26/2,-1.5]) {
@@ -134,7 +135,7 @@ module slicer_central() {
             }
         }
         slicer_axe_central();
-        translate([BagueLaiton_D+4, coulisse_d/2+20,-1.5]) rotate([0,0,90]) e3d_fix();
+        translate([BagueLaiton_D+4, coulisse_d/2+18,-1.5]) rotate([0,0,90]) e3d_fix();
         translate([-BagueLaiton_D/2-26/2, coulisse_d/2+5+26/2,-25]) rotate([0,0,90]) LJ18A3_8_Z();
         
     }
@@ -164,8 +165,9 @@ module e3d_fix() {
 
 module slicer_central_with_e3d() {
     slicer_central();
-    color("silver") translate([BagueLaiton_D+4,coulisse_d/2+20,-30-1.5])  rotate([0,0,90]) e3d();
+    color("silver") translate([BagueLaiton_D+4,coulisse_d/2+18,-30-1.5])  rotate([0,0,90]) e3d();
     translate([-BagueLaiton_D/2-26/2, coulisse_d/2+5+26/2,-48]) rotate([0,0,90]) LJ18A3_8_Z();
+    translate([15/2+BagueLaiton_D/2+22, 30/2+coulisse_d/2+3, -30/2-1.5]) rotate([0,90,0]) fan(30, 15, 24, 3.2, 3,-45);
 }
 //translate([50,0,0])slicer_withTensioner();
 
