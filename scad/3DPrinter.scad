@@ -5,7 +5,8 @@ use <Nema17Fix.scad>;
 use <AxeZ.scad>;
 use <Bearing.scad>;
 use <Angle.scad>;
-use <slicer.scad>;
+use <Slicer.scad>;
+use <PrinterHead.scad>;
 use <tools/timing_belts.scad>;
 
 module frame() {
@@ -130,7 +131,7 @@ module all_slicer() {
     translate([0, Frame_l/2-coulisse_ec-Frame_e, Frame_h-coulisse_eh]) rotate([180,0,90]) slicer_withTensioner();
     translate([0, -Frame_l/2+coulisse_ec+Frame_e, Frame_h-coulisse_eh]) rotate([180,0,-90]) slicer_withTensioner();
     
-    translate([0,0,Frame_h-coulisse_eh-coulisse_e/2-Cross_ec/2]) slicer_central_with_e3d();
+    translate([0,0,Frame_h-coulisse_eh-coulisse_e/2-Cross_ec/2]) head_central_with_e3d();
 }
 
 module all_angle() {
