@@ -84,16 +84,26 @@ module head_central_with_e3d() {
 }
 
 module head_fan() { 
-    r = 10;
-    scale_x=2;
-    scale_y=4;
-    scale_z=1;
+    h=20;
+    l = 36;
+    L =30;
+    e=2;
+    space = 4;
     difference() {
-        scale([scale_x,scale_y,scale_z]) sphere(r=r ,$fn=_globalResolution*2);
-        translate([-r*scale_x,-r*scale_y,-r*scale_z]) #cube([r*2*scale_x,r*2*scale_y,r*scale_z]);
+        linear_extrude(height = h, center = true, convexity = 10, scale=[1,3], $fn=100) circle(d=l);
+        translate([-l/2-0.1,-L/2,-h/2-0.1]) cube([l+0.2,L,h+0.2]);
+        translate([0, 0, e]) linear_extrude(height = h, center = true, convexity = 10, scale=[1,3], $fn=100)  circle(d=l);
+        translate([0, 0, e]) cylinder(d=l+e*2, h=h*2, center = true, $fn=_globalResolution);
+    }
+    
+    difference() {
+        linear_extrude(height = h, center = true, convexity = 10, scale=[1,2], $fn=100) circle(d=l-e-space);
+        translate([-l/2-0.1,-L/2-space/2,-h/2-0.1]) cube([l+0.2,L+space,h+0.2]);
+        translate([0, 0, e]) linear_extrude(height = h, center = true, convexity = 10, scale=[1,2], $fn=100)  circle(d=l-e-space);
     }
 }
 
-translate([16,22,-50]) head_fan();
-head_central_with_e3d();
+//translate([16,22,-60]) 
+    head_fan();
+//head_central_with_e3d();
 //e3d_fix();
