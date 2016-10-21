@@ -27,8 +27,8 @@ module print_part() {
 module e3d() {
 	chimera_and_cyclops_body();
 	for(i=[[9,0,0],[-9,0,0]]) translate(i) fncylinder(d=6.8,h=14);
-	translate([9,0,-2]) rotate([180,0,0]) v6_heater(rotate=0); 
-	translate([-9,0,-2]) rotate([180,0,0]) v6_heater(rotate=180); 
+	translate([9,0,-2]) rotate([180,0,0]) v6_heater(rotate=-58); 
+	translate([-9,0,-2]) rotate([180,0,0]) v6_heater(rotate=58); 
 }
 
 // ######################################################################################################################
