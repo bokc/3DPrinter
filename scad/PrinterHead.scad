@@ -36,6 +36,7 @@ module head_central() {
                         cylinder(d=bas_d,h=bas_l,$fn=_globalResolution );
                     
                 };
+
                 //Coupe basse
                 translate([-bas_d, -BagueLaiton_D/2-2-0.5,-bas_d/2-1.5]) cube([bas_d*2, bas_l+1, bas_d/2]);
                 //Coupe Haute
