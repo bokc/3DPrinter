@@ -59,16 +59,16 @@ module slicer() {
                     translate([-bas_d/2-2,-bas_l/2-0.1,-bas_d*0.55]) cube([bas_d+2, bas_l+0.2,bas_d/2]);
                 }
                 //haut
-                translate([-haut_l+bas_d/2,0,coulisse_e/2+Cross_ec/2]) rotate([0,90,0])
+                translate([-haut_l+bas_d/2-0.2,0,coulisse_e/2+Cross_ec/2]) rotate([0,90,0])
                     cylinder(d=haut_d,h=haut_l,$fn=_globalResolution );
                 // GT2
                 translate([belt_fix_l,-bas_l/2+2,h_belt-belt_fix_h/2-1]) cube([14, bas_l-4, belt_fix_h]);
             };
-            translate([-haut_l+bas_d/2,1,coulisse_e/2+Cross_ec/2+coulisse_d/2+0.5]) cube([haut_l,2,5]);
-            translate([-haut_l+bas_d/2,-3,coulisse_e/2+Cross_ec/2+coulisse_d/2+0.5]) cube([haut_l,2,5]);
+            translate([-haut_l+bas_d/2-0.2,1,coulisse_e/2+Cross_ec/2+coulisse_d/2+0.5]) cube([haut_l,2,5]);
+            translate([-haut_l+bas_d/2-0.2,-3,coulisse_e/2+Cross_ec/2+coulisse_d/2+0.5]) cube([haut_l,2,5]);
         };
         slicer_axe();
-        translate([-haut_l+bas_d/2-0.1,-1,coulisse_e/2+Cross_ec/2-coulisse_d/2+0.1]) cube([haut_l+belt_fix_l+10+0.2,2,haut_d]);
+        translate([-haut_l+bas_d/2-0.3,-1,coulisse_e/2+Cross_ec/2-coulisse_d/2+0.1]) cube([haut_l+belt_fix_l+10+0.2,2,haut_d]);
         //vis
         translate([-haut_l/2+bas_d/2,coulisse_d/2,coulisse_e/2+Cross_ec/2+haut_d/2+Vis_m3_p/2]) rotate([90,0,0]) cylinder(d=Vis_m3_p, h=coulisse_d, $fn=_globalResolution);
         
@@ -88,5 +88,6 @@ module slicer_withTensioner() {
     translate([coulisse_ec-r608z_e-Pulley_GT2_8_tooth_w-16+0.87,0,coulisse_e-Pulley_GT2_8_D/2-5+0.75]) gt2tensioner();
 }
 
-slicer_withTensioner();
+translate([0,0,8.7]) rotate([0,-90,0]) slicer();
+translate([5,0,0]) rotate([90,0,0]) gt2tensioner();
 
