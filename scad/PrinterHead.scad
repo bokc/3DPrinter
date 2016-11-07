@@ -47,13 +47,13 @@ module head_central() {
                 cube([22, 30, 4]);
             }
             // Fixation Capteur
-            translate([-BagueLaiton_D/2-26/2-4, -coulisse_d/2-5-26/2,-1.5]) {
-                cylinder(d=26, l=5);
+            #translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,-1.5]) {
+                cylinder(d=20, l=5);
             }
         }
         head_axe_central();
         translate([BagueLaiton_D+6, coulisse_d/2+18,-1.5]) rotate([0,0,90]) e3d_fix();
-        translate([-BagueLaiton_D/2-26/2-4, -coulisse_d/2-5-26/2,-25]) rotate([0,0,90]) LJ18A3_8_Z();
+        translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,-25]) rotate([0,0,90]) LJ12A3_4_Z();
         
     }
     
@@ -83,7 +83,7 @@ module e3d_fix() {
 module head_central_with_e3d() {
     head_central();
     color("silver") translate([BagueLaiton_D+6,coulisse_d/2+18,-30-1.5])  rotate([0,0,90]) e3d();
-    translate([-BagueLaiton_D/2-26/2-4, -coulisse_d/2-5-26/2,-48]) rotate([0,0,90]) LJ18A3_8_Z();
+    translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,-48]) rotate([0,0,90]) LJ12A3_4_Z();
     translate([15/2+BagueLaiton_D/2+24, 30/2+coulisse_d/2+3, -30/2-1.5]) rotate([0,90,0]) fan(30, 15, 24, 3.2, 3,-45);
     translate([22,40,-20]) head_fan();
 }
