@@ -35,14 +35,14 @@ detaillevel = 1; // [0:coarse render only outlines,1:fine render with all detail
 // 
 withfan = 0; // [0:render without fan frame,1:render with fan frame]
 
-_globalResolution = 16;
+_globalResolution = 20;
 
 // Data
 Frame_L = axe_x-Pulley_GT2_8_e-angle_e+Frame_e;
 Frame_l = axe_y-Pulley_GT2_8_e-angle_e+Frame_e;
 Frame_h = axe_z;
 
-coulisse_e = 3*coulisse_d;
+coulisse_e = 3*coulisse_d+1;
 coulisse_eh = (r608z_D*1.7)/2+4;
 coulisse_ec = r608z_D+10;
 
