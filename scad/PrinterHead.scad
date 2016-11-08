@@ -2,6 +2,7 @@ include <Param.scad>;
 use <Bearing.scad>;
 use <Proximity.scad>;
 use <fan.scad>;
+use <fanRadial.scad>;
 use <tools/e3d_v6_chimera.scad>;
 
 module head_axe_central() {
@@ -90,6 +91,7 @@ module head_central_with_e3d() {
 
 module head_fan() { 
     color ("red") rotate([180,0,-90]) import("../stl/Chimera_Part_Cooling_Duct.stl");
+    translate([-40,-30,17]) rotate([0,90,180]) fanRadial();
     
 }
 
