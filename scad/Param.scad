@@ -28,6 +28,9 @@ BagueLaiton_L=30;
 Vis_m3_p = 3.2;
 Vis_m3_t = 5;
 
+Head_x = BagueLaiton_D/2+12;
+Head_y = coulisse_d/2+18;
+
 // resolution of round object. each line segment is fnr mm long. fnr = 1 crude and good for development (its faster), aim for fnr = 0.4 or smaller for a production render. smaller means more details (and a lot more time to render).
 resolution = 0.4;
 // detail level

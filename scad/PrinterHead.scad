@@ -44,16 +44,16 @@ module head_central() {
                 translate([-BagueLaiton_D/2-2-0.5, -bas_d,Cross_ec+1.5]) cube([bas_l+1, bas_d*2, bas_d/2]);
             }
             // Fixation E3D
-            translate([BagueLaiton_D/2+2, coulisse_d/2+3,-1.5]) {
+            translate([Head_x-10, Head_y-15,-1.5]) {
                 cube([22, 30, 4]);
             }
             // Fixation Capteur
-            #translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,-1.5]) {
+            translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,-1.5]) {
                 cylinder(d=20, l=5);
             }
         }
         head_axe_central();
-        translate([BagueLaiton_D+6, coulisse_d/2+18,-1.5]) rotate([0,0,90]) e3d_fix();
+        translate([Head_x, Head_y,-1.5]) rotate([0,0,90]) e3d_fix();
         translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,-25]) rotate([0,0,90]) LJ12A3_4_Z();
         
     }
@@ -83,10 +83,10 @@ module e3d_fix() {
 
 module head_central_with_e3d() {
     head_central();
-    color("silver") translate([BagueLaiton_D+6,coulisse_d/2+18,-30-1.5])  rotate([0,0,90]) e3d();
+    color("silver") translate([Head_x,Head_y,-30-1.5]) rotate([0,0,90]) e3d();
     translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,-48]) rotate([0,0,90]) LJ12A3_4_Z();
-    translate([15/2+BagueLaiton_D/2+24, 30/2+coulisse_d/2+3, -30/2-1.5]) rotate([0,90,0]) fan(30, 15, 24, 3.2, 3,-45);
-    translate([22,40,-20]) head_fan();
+    translate([10/2+Head_x+12, 30/2+Head_y-15, -30/2-1.5]) rotate([0,90,0]) fan(30, 10, 24, 3.2, 3,-45);
+    translate([Head_x+ 4,Head_y + 18.5,-20]) head_fan();
 }
 
 module head_fan() { 
