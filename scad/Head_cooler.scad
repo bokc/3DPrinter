@@ -1,7 +1,4 @@
 
-L=31;
-    l=42;
-    h=13;
 
 module pyramid(w, l, h, L) {
 	mw = w/2;
@@ -20,40 +17,49 @@ module pyramid(w, l, h, L) {
 	],convexity = 10);
 }
 
-module remove() {
-    translate ([-12,20,0]) rotate([0,0,60]) cube([20,20,1.2], center =true);
-    translate ([12,20,0]) rotate([0,0,-60]) cube([20,20,1.2], center =true);
-    translate ([-15.8,14.2,0]) rotate([0,0,20]) cube([8.5,20,1.2], center =true);
-    translate ([+15.8,14.2,0]) rotate([0,0,-20]) cube([8.5,20,1.2], center =true);
-}
-
-
-module corps(e=1) {    
-    //hull() {
-        difference() {
-            cube([L,l,e], center=true);
-            remove();
-        }
-        //translate([-L/2,-l/2,h]) cube([L,l/2,e]);
-    //}
-}
-difference() {
+module holl() {
     union() {
-        pyramid(9,15,15, 23);
-        translate([0,8,0])pyramid(15,9,15, 15);
-    }
-    translate([0,2,1]) union() {
-        pyramid(8,14,14, 22);
-        translate([0,8,0])pyramid(14,8,14, 14);
+        rotate([0,0,58]) cube([10,2,1.2], center =true);
+        translate([4.6,5.1,0]) rotate([0,0,30]) cube([6,2,1.2], center =true);
     }
 }
-difference() {
-    polyhedron(points = [[0,23,15],[15,17,0],[-15,17,0],[15,23,0],[-15,23,0] ],
-            faces= [[0,1,2], [0,1,3], [0,2,4], [0,3,4], [1,3,4,2]]);
-    polyhedron(points = [[0,22,14],[13,17,1],[-13,17,1],[0,24,14],[13,23,1],[-13,23,1] ],
-            faces= [[0,1,2], [0,1,4, 3], [0,2,5, 3], [0,4,5], [1,4,5,2]]);
+
+module corps() {
+   difference() {
+        union() { 
+            corps1();
+            corps2();
+        }
+        translate([4,11,0.5]) {
+            holl();
+        }
+        translate([-4,11,0.5]) mirror([1,0,0]) holl();
+    }
 }
-//corps();
+
+module corps1() {
+    difference() {
+        union() {
+            pyramid(9,15,15, 23);
+            translate([0,8,0])pyramid(15,9,15, 15);
+        }
+        translate([0,2,1]) union() {
+            pyramid(8,14,14, 22);
+            translate([0,8,0])pyramid(14,8,14, 13);
+        }
+    }
+}
+
+module corps2() {
+    difference() {
+        polyhedron(points = [[0,23,15],[15,17,0],[-15,17,0],[15,23,0],[-15,23,0] ],
+                faces= [[0,1,2], [0,3,1], [0,4,3],[0,2,4], [1,3,4,2]],convexity = 10);
+        polyhedron(points = [[0,22,14],[13,17,1],[-13,17,1],[0,24,14],[13,23,1],[-13,23,1] ],
+                faces= [[0,1,2], [0,3,4,1], [3,5,4], [0,2,5,3], [1,4,5,2]],convexity = 10);
+    }
+}
+
+corps();
 
 
 //color ("red") translate([-18.5, -0,-28]) rotate([0, 0, 0]) import("../stl/Chimera_Part_Cooling_Duct.stl");
