@@ -3,6 +3,7 @@ use <Bearing.scad>;
 use <Proximity.scad>;
 use <fan.scad>;
 use <fanRadial.scad>;
+use <head_cooler.scad>;
 use <tools/e3d_v6_chimera.scad>;
 
 module head_axe_central() {
@@ -41,10 +42,10 @@ module head_central() {
                 //Coupe basse
                 translate([-bas_d, -BagueLaiton_D/2-2-0.5,-bas_d/2-1.5]) cube([bas_d*2, bas_l+1, bas_d/2]);
                 //Coupe Haute
-                translate([-BagueLaiton_D/2-2-0.5, -bas_d,Cross_ec+1.5]) cube([bas_l+1, bas_d*2, bas_d/2]);
+                translate([-BagueLaiton_D/2-2-0.5, -bas_d,Cross_ec+1.5]) cube([bas_l+5, bas_d*2, bas_d/2]);
             }
             // Fixation E3D
-            translate([Head_x-10, Head_y-15,-1.5]) {
+            translate([Head_x-10, Head_y-15,Head_z-1.5]) {
                 cube([22, 30, 4]);
             }
             // Fixation Capteur
@@ -52,9 +53,12 @@ module head_central() {
                 cylinder(d=20, l=5);
             }
         }
+        //Coupe Haute
+        translate([-BagueLaiton_D/2-2-0.5, -(BagueLaiton_D)/2-3,Cross_ec+1.5]) cube([bas_l+5, BagueLaiton_D+3, bas_d/2]);
         head_axe_central();
-        translate([Head_x, Head_y,-1.5]) rotate([0,0,90]) e3d_fix();
-        translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,-25]) rotate([0,0,90]) LJ12A3_4_Z();
+        translate([Head_x, Head_y,Head_z-1.5]) rotate([0,0,90]) e3d_fix();
+        translate([Head_x-6, Head_y-15,Head_z-30-1.5]) cube([18,30,30]);
+        translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,Head_z-25]) rotate([0,0,90]) LJ12A3_4_Z();
         
     }
     
@@ -83,15 +87,16 @@ module e3d_fix() {
 
 module head_central_with_e3d() {
     head_central();
-    color("silver") translate([Head_x,Head_y,-30-1.5]) rotate([0,0,90]) e3d();
-    translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,-48]) rotate([0,0,90]) LJ12A3_4_Z();
-    translate([10/2+Head_x+12, 30/2+Head_y-15, -30/2-1.5]) rotate([0,90,0]) fan(30, 10, 24, 3.2, 3,-45);
-    translate([Head_x+ 4,Head_y + 18.5,-20]) head_fan();
+    color("silver") translate([Head_x,Head_y,Head_z-30-1.5]) rotate([0,0,90]) e3d();
+    translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,Head_z-48]) rotate([0,0,90]) LJ12A3_4_Z();
+    translate([10/2+Head_x+12, 30/2+Head_y-15, Head_z-30/2-1.5]) rotate([0,90,0]) fan(30, 10, 24, 3.2, 3,-45);
+    translate([Head_x+ 3,Head_y ,Head_z-45]) head_fan();
 }
 
 module head_fan() { 
-    color ("red") rotate([180,0,-90]) import("../stl/Chimera_Part_Cooling_Duct.stl");
-    translate([-40,-30,17]) rotate([0,90,180]) fanRadial();
+    //color ("red") rotate([180,0,-90]) import("../stl/Chimera_Part_Cooling_Duct.stl");
+    color ("red") rotate([0,0,90]) headCooler();
+    translate([-66,-11,16]) rotate([0,180,180]) fanRadial();
     
 }
 
