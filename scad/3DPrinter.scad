@@ -209,8 +209,8 @@ module all() {
     
     all_belt();
     
-    //translate([0,-Frame_l/2+Frame_e,Frame_e]) rotate([0,0,90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
-    //translate([0,+Frame_l/2-Frame_e,Frame_e]) rotate([0,0,-90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
+    translate([0,-Frame_l/2+Frame_e,Frame_e]) rotate([0,0,90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
+    translate([0,+Frame_l/2-Frame_e,Frame_e]) rotate([0,0,-90]) axeZ(Frame_h-(coulisse_e+coulisse_eh+r608z_D));
 }
 
 all();

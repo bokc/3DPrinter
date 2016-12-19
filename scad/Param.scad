@@ -15,6 +15,7 @@ r608z_e=7;
 
 nema17_L=42;
 nema17_axe_d=5.2;
+nema17_h=40;
 
 Pulley_GT2_8_e=17.5;
 Pulley_GT2_8_D=26;
