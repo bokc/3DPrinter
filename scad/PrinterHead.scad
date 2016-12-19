@@ -49,17 +49,33 @@ module head_central() {
                 cube([22, 30, 4]);
             }
             // Fixation Capteur
-            translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,-1.5]) {
+            translate([-BagueLaiton_D/2-20/2-3, -coulisse_d/2-3-20/2,-1.5]) {
                 cylinder(d=20, l=5);
             }
+            
         }
         //Coupe Haute
         translate([-BagueLaiton_D/2-2-0.5, -(BagueLaiton_D)/2-3,Cross_ec+1.5]) cube([bas_l+5, BagueLaiton_D+3, bas_d/2]);
         head_axe_central();
         translate([Head_x, Head_y,Head_z-1.5]) rotate([0,0,90]) e3d_fix();
         translate([Head_x-6, Head_y-15,Head_z-30-1.5]) cube([18,30,30]);
-        translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,Head_z-25]) rotate([0,0,90]) LJ12A3_4_Z();
+        translate([-BagueLaiton_D/2-20/2-3, -coulisse_d/2-3-20/2,Head_z-25]) rotate([0,0,90]) LJ12A3_4_Z();
+        //coupe attache
+        translate([-23,7,-15]) rotate ([0,-30]) cube([20,40,20]);
         
+    }
+    //Attache cooler
+    translate([-11,Head_y,2]) {
+        difference() {
+            union() {
+                cube([10,4,7], center=true);
+                rotate([90,0,0]) translate([-5,0,0]) 
+                    cylinder(d=7, h=4, center=true,$fn=_globalResolution);
+            }
+            rotate([90,0,0]) translate([-5,0,0]) cylinder(d=Vis_m3_p, h=4.1, center=true,$fn=_globalResolution);
+            rotate([90,0,0]) translate([0,0,0]) cylinder(d=Vis_m3_p, h=4.1, center=true,$fn=_globalResolution);
+            translate([-2.5,0,0]) cube([5,4.1,Vis_m3_p], center=true);
+        }
     }
     
 }
@@ -88,7 +104,7 @@ module e3d_fix() {
 module head_central_with_e3d() {
     head_central();
     color("silver") translate([Head_x,Head_y,Head_z-30-1.5]) rotate([0,0,90]) e3d();
-    translate([-BagueLaiton_D/2-20/2-4, -coulisse_d/2-5-20/2,Head_z-48]) rotate([0,0,90]) LJ12A3_4_Z();
+    translate([-BagueLaiton_D/2-20/2-3, -coulisse_d/2-3-20/2,Head_z-48]) rotate([0,0,90]) LJ12A3_4_Z();
     translate([10/2+Head_x+12, 30/2+Head_y-15, Head_z-30/2-1.5]) rotate([0,90,0]) fan(30, 10, 24, 3.2, 3,-45);
     translate([Head_x+ 3,Head_y ,Head_z-45]) head_fan();
 }
@@ -96,8 +112,8 @@ module head_central_with_e3d() {
 module head_fan() { 
     //color ("red") rotate([180,0,-90]) import("../stl/Chimera_Part_Cooling_Duct.stl");
     color ("red") rotate([0,0,90]) headCooler();
-    translate([-66,-11,16]) rotate([0,180,180]) fanRadial();
-    
+    //translate([-43,15,38]) rotate([90,45,-90]) fanRadial();
+    translate([-59.5,0,25.5]) rotate([0,-40,0]) fan(30, 10, 24, 3.2, 3,-45);
 }
 
 //    head_fan();
