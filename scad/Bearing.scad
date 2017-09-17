@@ -14,15 +14,12 @@ module lm8uu() {
     linear_bearing("LM-8-UU");
 }
     
-module bagueLaiton_8_12_30() {
-    d=8;
-    D=12;
-    l=30;
+module bagueLaiton_8_12_30(d=8, D=12, l=30, e=0) {
     color("Goldenrod")
-    translate ([0,0,-l/2])
+    translate ([0,0,-(l+e)/2])
     difference(){
-        cylinder(d=D,h=l,$fn=_globalResolution);
-        translate ([0,0, -0.05]) cylinder(d=d,h=l+0.1,$fn=_globalResolution);
+        cylinder(d=D+e,h=l+e,$fn=_globalResolution);
+        translate ([0,0, -0.05]) cylinder(d=d,h=l+0.1+e,$fn=_globalResolution);
     };
 }
 

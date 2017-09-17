@@ -4,11 +4,15 @@ axe_x = 470;
 axe_y = 470;
 axe_z = 370;
 
+// Epaisseur planches
 Frame_e = 16;
+// Diamettre des coulisses
 coulisse_d = 8;
+// Epaisseur materiaux pour les angles
 angle_e=3.5;
 
 // Constant
+// Roulement 608 ZZ
 r608z_d=8;
 r608z_D=22;
 r608z_e=7;
@@ -23,6 +27,7 @@ Pulley_GT2_8_tooth_w=6.2;
 
 GT2_w=6;
 
+// Dimmention bague laiton
 BagueLaiton_D=12;
 BagueLaiton_L=30;
 
@@ -54,6 +59,6 @@ coulisse_e = 3*coulisse_d+1;
 coulisse_eh = (r608z_D*1.7)/2+4;
 coulisse_ec = r608z_D+10;
 
-Cross_ec = BagueLaiton_D+1;
+Cross_ec = BagueLaiton_D+2;
 
 angle_h=coulisse_e+coulisse_eh+r608z_D;
